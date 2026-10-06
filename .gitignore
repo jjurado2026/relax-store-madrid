@@ -1,0 +1,12 @@
+# ── NO PUBLICAR ──────────────────────────────────────────────────
+# Análisis interno con hallazgos sobre una empresa real identificable:
+# auditoría, competencia, plan de mejoras, copy y propuesta comercial.
+# Este repositorio es PÚBLICO (GitHub Pages lo exige en cuenta gratuita).
+_interno/
+
+# ── Sistema ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+node_modules/
+.claude/
+*.log
