@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Propuesta no disponible | Relax Store Las Rozas</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F6F8FA">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/epilogue-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Aviso de propuesta caducada, en el papel de la fachada: la cota mide los días que han pasado */
+  @font-face { font-family: 'Epilogue'; src: url('assets/fonts/epilogue-latin-var.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
+  @font-face { font-family: 'Gochi Hand'; src: url('assets/fonts/gochi-hand-latin.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  :root {
+    --papel: #F6F8FA; --blanco: #FFFFFF; --tinta: #0C2B44; --azul: #136CA8; --azul-hondo: #0E5A8E; --lapiz: #5A6E7F;
+    --canal: clamp(16px, 5vw, 72px);
+    --sale: cubic-bezier(.16, 1, .3, 1);
+    --muelle: linear(0, 0.049, 0.174, 0.34, 0.521, 0.696, 0.849, 0.974, 1.065, 1.124, 1.155, 1.163, 1.153, 1.132, 1.104, 1.075, 1.046, 1.022, 1.002, 0.988, 0.979, 0.974, 0.973, 0.975, 0.979, 0.984, 0.988, 0.993, 0.997, 1, 1.002, 1.004, 1.004, 1.004, 1.004, 1.003, 1);
+    --sombra-elevado: 0 1px 2px rgba(12, 43, 68, .07), 0 12px 26px -16px rgba(19, 108, 168, .42);
+    --sombra-flotante: 0 2px 6px rgba(12, 43, 68, .08), 0 30px 60px -28px rgba(12, 43, 68, .55);
+    --alto: min(60svh, 540px);
+  }
+  @supports not (transition-timing-function: linear(0, 1)) { :root { --muelle: cubic-bezier(.34, 1.56, .64, 1); } }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    min-height: 100svh; display: grid; grid-template-rows: auto 1fr;
+    background: var(--papel); color: var(--tinta);
+    font-family: 'Epilogue', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: clamp(1rem, .95rem + .22vw, 1.1875rem); line-height: 1.7;
+    -webkit-font-smoothing: antialiased; overflow-x: clip;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 6px; }
+
+  .cab { padding: clamp(16px, 3svh, 28px) var(--canal) 0; }
+  .cab img { height: clamp(26px, 1.15vw + 18px, 44px); width: auto; }
+
+  .aviso {
+    width: 100%; max-width: calc(1240px + 2 * var(--canal)); margin-inline: auto;
+    padding: clamp(32px, 6svh, 72px) var(--canal) clamp(40px, 7svh, 80px);
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(44px, 7svh, 72px); align-items: center;
+  }
+  .aviso__texto { display: grid; gap: clamp(20px, 3svh, 32px); justify-items: start; min-width: 0; }
+  h1 { font-weight: 800; font-size: clamp(1.75rem, 1.1rem + 2.6vw, 3.5rem); line-height: 1.06; letter-spacing: 0; width: max-content; max-width: 100%; }
+  .aviso__mas { max-width: 44ch; text-wrap: pretty; }
+
+  /* la cota, debajo del titular: lo mide de lado a lado y dice cuánto ha pasado */
+  .titular { display: grid; gap: 14px; width: max-content; max-width: 100%; }
+  .cota { position: relative; padding-top: 22px; color: var(--azul); }
+  .cota__linea, .cota__punta, .cota__ref { position: absolute; }
+  .cota__linea { left: 0; right: 0; top: 9px; height: 2px; background: currentColor; }
+  .cota__punta { top: 3px; width: 50%; height: 14px; background: currentColor; }
+  .cota__punta--ini { left: 0; clip-path: polygon(0 50%, 12px 0, 12px 100%); }
+  .cota__punta--fin { right: 0; clip-path: polygon(100% 50%, calc(100% - 12px) 0, calc(100% - 12px) 100%); }
+  .cota__ref { top: -11px; width: 2px; height: 27px; background: currentColor; }
+  .cota__ref--ini { left: 0; } .cota__ref--fin { right: 0; }
+  .cota__frase { display: block; text-align: center; font-family: 'Gochi Hand', 'Segoe Print', cursive; font-size: clamp(1.25rem, .8rem + 1.2vw, 2rem); line-height: 1.1; }
+
+  .contacto { display: grid; gap: 2px; font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); }
+  .contacto strong { font-weight: 800; font-size: 1.125em; }
+  .contacto a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--azul); text-underline-offset: 4px; overflow-wrap: anywhere; transition: transform .4s var(--muelle); }
+  .contacto a:hover { color: var(--azul-hondo); text-decoration-thickness: 2px; transform: translateX(2px); }
+  .contacto a:active { transform: translateY(1px); }
+
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; }
+  .boton {
+    position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px;
+    border-radius: 12px; border: 2px solid var(--tinta); color: var(--tinta); background: transparent;
+    font: 700 1rem/1.15 'Epilogue', system-ui, sans-serif; text-decoration: none; white-space: nowrap; transition: transform .5s var(--muelle);
+  }
+  .boton::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity .18s linear; }
+  .boton svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .boton:hover::before, .boton:focus-visible::before { opacity: 1; }
+  .boton:hover, .boton:focus-visible { color: #fff; border-color: transparent; transform: translateY(-2px); }
+  .boton:active { transform: scale(.97); transition-duration: .12s; }
+  .boton--principal { color: #fff; border-color: transparent; }
+  .boton--principal::before { opacity: 1; }
+  .boton--principal:hover::before, .boton--principal:focus-visible::before { background: var(--azul-hondo); }
+  .acciones:has(.boton:not(.boton--principal):is(:hover, :focus-visible)) .boton--principal:not(:hover, :focus-visible) { color: var(--tinta); border-color: var(--tinta); }
+  .acciones:has(.boton:not(.boton--principal):is(:hover, :focus-visible)) .boton--principal:not(:hover, :focus-visible)::before { opacity: 0; }
+
+  /* la home entera, en su marco marino entre dos tabiques rayados; pasa despacio de arriba abajo */
+  .miniatura[hidden] { display: none; }
+  .aviso:has(.miniatura[hidden]) { grid-template-columns: minmax(0, 1fr); }
+  .miniatura { justify-self: center; display: grid; gap: 14px; justify-items: center; }
+  .hueco { display: grid; grid-template-columns: 12px auto 12px; }
+  .tabique { border: 2px solid var(--tinta); background: repeating-linear-gradient(-45deg, var(--tinta) 0 1.5px, transparent 1.5px 8px) var(--papel); }
+  .tabique--izq { border-right: 0; } .tabique--der { border-left: 0; }
+  .marco { display: block; width: min(300px, 64vw); height: var(--alto); overflow: hidden; border: 6px solid var(--tinta); background: var(--tinta); box-shadow: var(--sombra-flotante); }
+  .marco img { width: 100%; }
+  .suelo { grid-column: 1 / -1; height: 12px; margin: 0 -8px;
+    background: linear-gradient(var(--tinta), var(--tinta)) top / 100% 2px no-repeat, repeating-linear-gradient(-45deg, var(--tinta) 0 1.2px, transparent 1.2px 7px); }
+  .miniatura figcaption { font-family: 'Gochi Hand', 'Segoe Print', cursive; font-size: 1.25rem; line-height: 1.2; color: var(--azul); text-align: center; }
+
+  @media (min-width: 900px) {
+    .aviso { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 96px); }
+    .miniatura { justify-self: end; }
+  }
+
+  @keyframes medir-linea { from { transform: scaleX(0); } }
+  @keyframes medir-ini { from { transform: translateX(100%); } }
+  @keyframes medir-fin { from { transform: translateX(-100%); } }
+  @keyframes aparecer { from { opacity: 0; transform: translateY(6px) rotate(-2deg); } }
+  @keyframes encajar { 0% { opacity: 0; transform: translateY(-24px); } 30% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+  @keyframes recorrer { 0%, 6% { transform: none; } 94%, 100% { transform: translateY(calc(-100% + var(--alto) - 12px)); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .cota__linea { animation: medir-linea .55s var(--sale) .35s both; }
+    .cota__punta--ini { animation: medir-ini .8s var(--muelle) .35s both; }
+    .cota__punta--fin { animation: medir-fin .8s var(--muelle) .35s both; }
+    .cota__frase { animation: aparecer .6s var(--muelle) .7s both; }
+    .marco { animation: encajar .9s var(--muelle) .2s both; }
+    .marco img { animation: recorrer 48s ease-in-out 1.6s infinite alternate; }
+    .marco:hover img, .marco:focus img { animation-play-state: paused; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marco { overflow-y: auto; } }
+</style>
+</head>
+<body>
+  <header class="cab">
+    <img src="assets/img/logo-relax-store.png" width="876" height="160" alt="Relax Store Las Rozas">
+  </header>
+
+  <main class="aviso">
+    <div class="aviso__texto">
+      <div class="titular">
+        <h1>Esta propuesta ya<br> no está disponible</h1>
+        <div class="cota" aria-hidden="true">
+          <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
+          <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
+          <span class="cota__frase">más de 10 días</span>
+        </div>
+      </div>
+      <p class="aviso__mas">Han pasado más de 10 días desde que te la envié. Si te sigue interesando la nueva web de Relax Store, escríbeme o llámame y te la vuelvo a enseñar.</p>
+      <div class="acciones">
+        <a class="boton boton--principal" href="mailto:jjuradogarciadelrio@gmail.com?subject=Propuesta%20web%20Relax%20Store%20Las%20Rozas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>Escribir un email</a>
+        <a class="boton" href="tel:+34646114717"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Llamar</a>
+      </div>
+      <p class="contacto">
+        <strong>Juan Jurado</strong>
+        <a href="mailto:jjuradogarciadelrio@gmail.com?subject=Propuesta%20web%20Relax%20Store%20Las%20Rozas">jjuradogarciadelrio<wbr>@gmail.com</a>
+        <a href="tel:+34646114717">+34 646 114 717</a>
+        <a href="https://jjuradogarciadelrio.com" target="_blank" rel="noopener">jjuradogarciadelrio.com</a>
+      </p>
+    </div>
+
+    <figure class="miniatura">
+      <div class="hueco">
+        <span class="tabique tabique--izq" aria-hidden="true"></span>
+        <span class="marco" tabindex="0" aria-label="Miniatura de la home completa">
+          <img src="assets/img/home-miniatura.webp" width="600" alt="Miniatura de la home propuesta para Relax Store Las Rozas, completa de arriba abajo" onerror="this.closest('figure').hidden = true">
+        </span>
+        <span class="tabique tabique--der" aria-hidden="true"></span>
+        <span class="suelo" aria-hidden="true"></span>
+      </div>
+      <figcaption>la propuesta, entera</figcaption>
+    </figure>
+  </main>
+</body>
+</html>
