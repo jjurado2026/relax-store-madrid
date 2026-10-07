@@ -1,0 +1,85 @@
+/* =====================================================================================
+   «Nuestra colección» (#coleccion) — tres piezas enteras en su hueco, en un mismo alzado:
+   tabiques rayados compartidos, un solo suelo y una cota con su lema a mano encima de cada
+   foto. Escritorio (≥ 900): un alzado de tres nichos (subgrid, las tres fotos a la misma
+   altura porque cada columna es proporcional a su foto). 600-899: pieza y texto en fila.
+   < 600: una columna; cada pieza con sus propios tabiques y su suelo.
+   Movimiento: el suelo se traza, los tabiques suben, las fotos caen y rebotan en su hueco
+   y las cotas se abren (coleccion.js). Cursor: pieza +6 px, zoom 1,06 hacia el cursor y la
+   cota vuelve a medir.
+   ===================================================================================== */
+.coleccion { --tab: clamp(12px, 1.5vw, 40px); --suelo-h: clamp(10px, .5vw + 7px, 16px); }
+.coleccion__cabeza { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--e5) var(--e6); }
+.coleccion__cabeza .titular { max-width: none; }
+.coleccion__medir svg { width: 22px; height: 22px; }
+
+.coleccion__plano { position: relative; display: grid; row-gap: clamp(56px, 8vw, 80px); margin-top: clamp(28px, 4vw, 64px); }
+.coleccion__plano > .coleccion__tabique, .coleccion__plano > .coleccion__suelo { display: none; }
+
+/* --- la pieza (una columna) ------------------------------------------------------------- */
+.coleccion__pieza { position: relative; display: grid; grid-template-columns: var(--tab) minmax(0, 1fr) var(--tab); grid-template-rows: auto auto auto auto; align-content: start; }
+.coleccion__pieza > .cota { grid-column: 2; grid-row: 1; margin-bottom: 14px; }
+.coleccion__pieza .cota__frase { font-size: var(--t-cota); }
+.coleccion__tab { grid-row: 2; }
+.coleccion__tab--izq { grid-column: 1; border-right: 0; }
+.coleccion__tab--der { grid-column: 3; border-left: 0; }
+.coleccion__caida { grid-column: 2; grid-row: 2; position: relative; z-index: 1; }
+.coleccion__suelo-pieza { grid-column: 1 / -1; grid-row: 3; height: var(--suelo-h); margin-inline: calc(var(--tab) * -.6); }
+.coleccion__texto { grid-column: 2; grid-row: 4; display: grid; justify-items: start; align-content: start; gap: var(--e2); padding-top: var(--e5); }
+.coleccion__linea { color: var(--lapiz); max-width: 36ch; }
+.coleccion__enlace { margin-top: -4px; }
+
+/* el marco es el enlace: la pieza se eleva, la foto se acerca hacia el cursor */
+.coleccion__marco { --marco-g: clamp(4px, .28vw + 2px, 8px); display: block; isolation: isolate; text-decoration: none; transition: transform .6s var(--muelle); }
+.coleccion__marco::after { content: ""; position: absolute; inset: 0; box-shadow: 0 34px 50px -26px rgba(12, 43, 68, .55), 0 10px 18px -12px rgba(19, 108, 168, .4); opacity: 0; transition: opacity .35s linear; pointer-events: none; }
+.coleccion__marco img { transition: transform var(--d-larga) var(--sale); }
+.coleccion__pieza:hover .coleccion__marco, .coleccion__marco:focus-visible { transform: translateY(-6px); }
+.coleccion__pieza:hover .coleccion__marco::after, .coleccion__marco:focus-visible::after { opacity: 1; }
+.coleccion__pieza:hover .coleccion__marco img, .coleccion__marco:focus-visible img { transform: scale(1.06); }
+.coleccion__marco:active { transform: translateY(-2px) scale(.99); transition-duration: .12s; }
+.coleccion__marco:focus-visible { outline-offset: 5px; border-radius: 0; }
+
+/* --- 600-899: la pieza a la izquierda, su texto a la derecha ---------------------------- */
+@media (min-width: 600px) and (max-width: 899px) {
+  .coleccion__pieza { grid-template-columns: var(--tab) minmax(0, 1.5fr) var(--tab) minmax(0, 1fr); column-gap: 0; }
+  .coleccion__texto { grid-column: 4; grid-row: 1 / span 3; align-self: center; padding: 0 0 0 var(--e6); }
+  .coleccion__suelo-pieza { grid-column: 1 / 4; }
+}
+
+/* --- ≥ 900: un solo alzado, tres nichos, tabiques compartidos y un solo suelo ------------- */
+@media (min-width: 900px) {
+  .coleccion__plano {
+    grid-template-columns: var(--tab) minmax(0, 1.4252fr) var(--tab) minmax(0, 1.3889fr) var(--tab) minmax(0, 1.3777fr) var(--tab);
+    grid-template-rows: auto auto var(--suelo-h) auto; row-gap: 0;
+  }
+  .coleccion__plano > .coleccion__tabique { display: block; grid-row: 2; }
+  .coleccion__tabique--1 { grid-column: 1; border-right: 0; }
+  .coleccion__tabique--2 { grid-column: 3; border-inline: 0; }
+  .coleccion__tabique--3 { grid-column: 5; border-inline: 0; }
+  .coleccion__tabique--4 { grid-column: 7; border-left: 0; }
+  .coleccion__plano > .coleccion__suelo { display: block; grid-row: 3; grid-column: 1 / -1; height: var(--suelo-h); margin-inline: calc(var(--tab) * -1.2); }
+  .coleccion__pieza { grid-row: 1 / span 4; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; }
+  .coleccion__pieza--1 { grid-column: 2; } .coleccion__pieza--2 { grid-column: 4; } .coleccion__pieza--3 { grid-column: 6; }
+  .coleccion__pieza > .cota, .coleccion__caida, .coleccion__texto { grid-column: 1; }
+  .coleccion__pieza > .coleccion__tab, .coleccion__suelo-pieza { display: none; }
+  .coleccion__texto { padding: var(--e6) clamp(6px, 1vw, 20px) 0 0; }
+}
+
+/* --- entrada (solo con movimiento): suelo, tabiques, fotos que caen, textos ----------------
+   El alzado (data-revelar) trae el suelo y los tabiques compartidos; cada pieza (data-revelar)
+   trae su caída, sus tabiques del móvil y su texto. Las cotas las abre coleccion.js. */
+.anima .coleccion__plano:not(.dentro) > .coleccion__suelo, .anima .coleccion__pieza:not(.dentro) .coleccion__suelo-pieza { opacity: 0; transform: scaleX(.15); }
+.anima .coleccion__plano:not(.dentro) > .coleccion__tabique, .anima .coleccion__pieza:not(.dentro) .coleccion__tab { transform: scaleY(0); }
+.anima .coleccion__pieza:not(.dentro) .coleccion__caida { opacity: 0; transform: translateY(-90px) rotate(-1.5deg); }
+.anima .coleccion__pieza:not(.dentro) .coleccion__texto { opacity: 0; }
+.anima .coleccion__plano.dentro > .coleccion__suelo, .anima .coleccion__pieza.dentro .coleccion__suelo-pieza { transition: opacity .2s linear, transform .9s var(--sale); }
+.anima .coleccion__plano.dentro > .coleccion__tabique, .anima .coleccion__pieza.dentro .coleccion__tab { transition: transform .8s var(--muelle-suave) var(--rv, .12s); }
+.anima .coleccion__pieza.dentro .coleccion__caida { transition: opacity .25s linear var(--rv, .3s), transform .95s var(--caida) var(--rv, .3s); }
+.anima .coleccion__pieza.dentro .coleccion__texto { transition: opacity .6s linear var(--rv-t, 1s); }
+.coleccion__tabique--2 { --rv: .2s; } .coleccion__tabique--3 { --rv: .28s; } .coleccion__tabique--4 { --rv: .36s; }
+.coleccion__pieza--1 .coleccion__caida { --rv: .3s; } .coleccion__pieza--2 .coleccion__caida { --rv: .44s; } .coleccion__pieza--3 .coleccion__caida { --rv: .58s; }
+.coleccion__pieza--2 .coleccion__texto { --rv-t: 1.12s; } .coleccion__pieza--3 .coleccion__texto { --rv-t: 1.24s; }
+@media (max-width: 899px) {
+  .coleccion__pieza .coleccion__caida, .coleccion__pieza .coleccion__tab { --rv: .2s; }
+  .coleccion__pieza .coleccion__texto { --rv-t: .9s; }
+}

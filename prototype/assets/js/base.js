@@ -194,15 +194,15 @@
   const modelosTexto = l => l.length > 1 ? `los modelos ${enumerar(l)}` : `el modelo ${l[0]}`;
   const redaccionBase = h => {
     const cm = h.medida, l = h.modelos;
-    if (cm && l.length) return `Hola, Relax Store. Mi hueco mide ${cm} cm de ancho y me interesa${l.length > 1 ? 'n' : ''} ${modelosTexto(l)}. Os mando una foto del hueco. ¿Cuándo puedo pasar a verlo?`;
-    if (cm) return `Hola, Relax Store. Mi hueco mide ${cm} cm de ancho y busco un sofá o una cama a medida. Os mando una foto del hueco. ¿Cuándo puedo pasar a verlo?`;
+    if (cm && l.length) return `Hola, Relax Store. Mi hueco mide ${cm} cm de ancho y me interesa${l.length > 1 ? 'n' : ''} ${modelosTexto(l)}. Os mando una foto del hueco. ¿Qué me recomendáis?`;
+    if (cm) return `Hola, Relax Store. Mi hueco mide ${cm} cm de ancho y busco un sofá o una cama a medida. Os mando una foto del hueco. ¿Qué me recomendáis?`;
     if (l.length) return `Hola, Relax Store. Me interesa${l.length > 1 ? 'n' : ''} ${modelosTexto(l)}, a la medida de mi hueco. ¿Os mando las medidas y una foto?`;
     return 'Hola, Relax Store. Busco un sofá o una cama a medida para un hueco de mi casa. ¿Os mando las medidas y una foto?';
   };
   RS.redaccionBase = redaccionBase;
   RS.preguntarPor = modelo => RS.whatsapp(RS.hueco.medida
-    ? `Hola, Relax Store. Me interesa el modelo ${modelo} para un hueco de ${RS.hueco.medida} cm de ancho. ¿Os mando una foto del hueco?`
-    : `Hola, Relax Store. Me interesa el modelo ${modelo} a la medida de mi hueco. ¿Os mando las medidas y una foto?`);
+    ? `Hola, Relax Store. Me interesa el modelo ${modelo}. Mi hueco mide ${RS.hueco.medida} cm de ancho: ¿me contáis cómo quedaría?`
+    : `Hola, Relax Store. Me interesa el modelo ${modelo}. ¿Me contáis cómo quedaría a la medida de mi hueco?`);
 
   const hueco = RS.hueco = {
     medida: 0, modelos: [], datos: {}, redactar: null,
@@ -311,7 +311,7 @@
     const fijarValor = (cm, desde, silencio) => {
       valor = Math.max(0, Math.min(999, Math.round(cm) || 0));
       el.classList.toggle('con-medida', valor > 0);
-      lecturaTxt.textContent = valor ? (valor > MAX ? `${valor} cm +` : `${valor} cm`) : '';
+      lecturaTxt.textContent = valor ? (valor > MAX ? `${valor} cm +` : `${valor} cm`) : '— cm';
       una.setAttribute('aria-valuenow', Math.min(valor, MAX));
       una.setAttribute('aria-valuetext', valor ? `${valor} centímetros` : 'Sin medir');
       if (input && desde !== 'input') input.value = valor || '';
@@ -495,9 +495,9 @@
     // la cota del hero vuelve a medir cada 6 s con frases reales (fachada y reseñas)
     const FRASES = [
       ['Camas y sofás a medida', 'Rótulo de la tienda, C/ Turín 17D'],
-      ['a la medida exacta del hueco', 'Carlos M., reseña en Google'],
+      ['la medida exacta del hueco', 'Carlos M., reseña en Google'],
       ['al hueco entre dos columnas', 'Dani G., reseña en Google'],
-      ['adaptado a las medidas del hueco', 'Juan Carlos C., reseña en Google']
+      ['a las medidas del hueco', 'Juan Carlos C., reseña en Google']
     ];
     let iFrase = 0, mirando = false;
     const remedir = () => { if (mirando) return; iFrase = (iFrase + 1) % FRASES.length; RS.cota.remedir(cotaHero, ...FRASES[iFrase]); };
