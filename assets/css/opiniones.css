@@ -1,0 +1,151 @@
+/* =====================================================================================
+   OPINIONES — «La cinta que mide tiempo»
+   Sus 10 reseñas colgadas de una cinta métrica graduada en meses (de la más reciente,
+   a la izquierda, a la más antigua). Cada nota cuelga de su fecha con un cordel.
+   La cinta sale de su caja (a la derecha), avanza sola despacio y se recoge con su «clac».
+   ===================================================================================== */
+.opiniones {
+  background: var(--blanco); /* separa la cinta del croquis, que va justo antes sobre papel */
+  --nota-w: clamp(296px, 23vw + 20px, 400px);
+  --hueco-nota: clamp(22px, 1.8vw, 40px);
+  --cinta-h: clamp(34px, .6vw + 28px, 44px);
+  --cordel-h: clamp(40px, 2.6vw + 18px, 64px);
+  --caja-w: clamp(56px, 2vw + 40px, 84px);
+  padding-bottom: clamp(56px, 4vw + 32px, 128px);
+}
+
+/* ---------- cabecera: el dato dentro del titular y la frase que destaca Google ---------- */
+.opiniones__cabeza { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--e5) var(--e8); }
+.opiniones__titulo { max-width: 16ch; }
+.opiniones__medida { display: flex; flex-direction: column; align-items: flex-end; gap: var(--e3); padding-bottom: 6px; }
+.opiniones__estrellas { color: var(--mostaza); font-size: clamp(1.5rem, 1rem + 1.6vw, 2.75rem); letter-spacing: .08em; line-height: 1; font-family: 'Segoe UI Symbol', 'Apple Symbols', system-ui, sans-serif; }
+.opiniones__cota { --cota-letra: clamp(1.375rem, .8rem + 1.3vw, 2.375rem); min-width: 12ch; }
+
+/* ---------- el visor (a sangre) y el carril que se desliza ---------- */
+.opiniones__visor { position: relative; margin: clamp(32px, 3vw + 16px, 72px) calc(-1 * var(--canal)) 0; }
+.opiniones__carril {
+  position: relative; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+  scrollbar-width: none; scroll-padding-inline: var(--canal);
+  outline-offset: -4px; border-radius: 0;
+}
+.opiniones__carril::-webkit-scrollbar { display: none; }
+.opiniones__carril:focus-visible { outline: 3px solid var(--azul); }
+.opiniones.fino .opiniones__carril { cursor: grab; }
+.opiniones.fino .opiniones__carril.arrastrando { cursor: grabbing; user-select: none; }
+.opiniones__pista { width: max-content; min-width: 100%; }
+.opiniones__deriva {
+  position: relative; will-change: transform;
+  padding: calc(var(--cinta-h) + var(--cordel-h)) calc(var(--canal) + var(--caja-w) + 48px) 40px calc(var(--canal) + 34px);
+}
+
+/* la cinta: azul triángulo, graduada en blanco (el JS dibuja las marcas y los meses) */
+.opiniones__cinta {
+  position: absolute; left: var(--canal); right: 0; top: 0; height: var(--cinta-h);
+  background: var(--azul); border-radius: 3px 0 0 3px;
+  box-shadow: 0 10px 18px -14px rgba(12, 43, 68, .7);
+}
+.opiniones__cinta svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.opiniones__una { /* la uña de metal en el cero de la cinta */
+  position: absolute; left: -9px; top: -6px; bottom: -6px; width: 11px; border-radius: 3px 2px 2px 3px;
+  background: linear-gradient(90deg, var(--metal), #fff 45%, var(--metal)); border: 2px solid var(--tinta);
+}
+
+/* las notas: misma anchura, colgadas en fila */
+.opiniones__notas { display: flex; align-items: flex-start; gap: var(--hueco-nota); margin: 0; }
+.opiniones__nota { position: relative; flex: none; width: var(--nota-w); scroll-snap-align: start; }
+.opiniones__cordel {
+  position: absolute; left: var(--ancla, 50%); top: calc(-1 * var(--cordel-h)); width: 2px; height: var(--cordel-l, var(--cordel-h)); margin-left: -1px;
+  background: var(--tinta); transform-origin: 50% 0; transform: rotate(var(--cordel-giro, 0deg));
+}
+.opiniones__colgante { position: relative; transform-origin: var(--pinza, 50%) -12px; }
+.opiniones__pinza { /* pinza marino que sujeta la nota por su fecha */
+  position: absolute; z-index: 2; left: var(--pinza, 50%); top: -14px; width: 18px; height: 28px; margin-left: -9px;
+  background: var(--tinta); border-radius: 5px 5px 3px 3px; box-shadow: var(--sombra-base);
+}
+.opiniones__pinza::after { content: ""; position: absolute; left: 4px; right: 4px; top: 6px; height: 7px; background: var(--azul-noche); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+
+.opiniones__papel {
+  position: relative; display: flex; flex-direction: column; gap: var(--e3);
+  padding: clamp(20px, 1vw + 14px, 30px) clamp(18px, 1vw + 12px, 28px) clamp(18px, 1vw + 10px, 26px);
+  background: var(--blanco); border-radius: var(--radio-sello); box-shadow: var(--sombra-elevado), 0 0 0 1.5px rgba(12, 43, 68, .16);
+  transition: transform .55s var(--muelle);
+}
+.opiniones__papel::after { /* borde azul solo en la nota bajo el cursor */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; pointer-events: none;
+}
+.opiniones__papel:hover { transform: translateY(4px) rotate(.6deg); }
+.opiniones__papel:hover::after { opacity: 1; }
+.opiniones__fila { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; }
+.opiniones__nota-estrellas { color: var(--mostaza); letter-spacing: 2px; font-size: 1.0625rem; line-height: 1; font-family: 'Segoe UI Symbol', 'Apple Symbols', system-ui, sans-serif; }
+.opiniones__fecha { font-size: var(--t-firma); font-weight: 600; color: var(--lapiz); }
+.opiniones__texto { margin: 0; display: grid; gap: .7em; font-size: var(--t-peq); line-height: 1.65; color: var(--tinta); }
+.opiniones__resto { display: grid; gap: .7em; }
+.opiniones__resto[hidden] { display: none; }
+.opiniones__firma { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding-top: var(--e3); border-top: 1.5px dashed var(--trazo); margin-top: auto; }
+.opiniones__autor { font-weight: 700; font-size: var(--t-peq); }
+.opiniones__origen { font-size: var(--t-firma); font-weight: 600; color: var(--lapiz); }
+.opiniones__leer {
+  align-self: flex-start; min-height: 44px; margin: -10px 0 -6px; padding: 0 2px; border: 0; background: none; cursor: pointer;
+  font: 700 var(--t-peq)/1 var(--f-texto); color: var(--azul); text-decoration: underline; text-underline-offset: 4px; border-radius: 4px;
+  transition: transform .4s var(--muelle);
+}
+.opiniones__leer:hover { color: var(--azul-hondo); text-decoration-thickness: 2px; transform: translateX(3px); }
+.opiniones__leer:active { transform: scale(.96); transition-duration: .1s; }
+.anima .opiniones__resto:not([hidden]) { animation: opiniones-aparece .5s linear both; }
+@keyframes opiniones-aparece { from { opacity: 0; } to { opacity: 1; } }
+
+/* la cota a mano bajo dos notas: la medida que da el cliente */
+.opiniones__cota-nota { --cota-letra: clamp(1.0625rem, .62rem + .62vw, 1.375rem); margin-top: var(--e4); }
+
+/* la caja del metro, a la derecha: la cinta entra en ella */
+.opiniones__caja {
+  position: absolute; z-index: 3; right: 0; top: calc(var(--cinta-h) / 2); width: calc(var(--caja-w) + var(--canal) * .5); height: calc(var(--caja-w) * 1.05);
+  transform-origin: 20% 70%; translate: 0 -50%;
+  background: var(--tinta); border-radius: 16px 0 0 6px; box-shadow: var(--sombra-flotante); pointer-events: none;
+}
+.opiniones__caja::before { /* el triángulo del logotipo en la caja */
+  content: ""; position: absolute; left: calc(var(--caja-w) * .26); top: 50%; width: calc(var(--caja-w) * .42); aspect-ratio: 1.155; translate: 0 -55%;
+  background: var(--azul-noche); clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.opiniones__caja::after { content: ""; position: absolute; left: calc(var(--caja-w) * .12); top: 50%; width: calc(var(--caja-w) * .7); aspect-ratio: 1; translate: 0 -50%; border-radius: 50%; border: 2px solid rgba(142, 194, 236, .32); }
+
+/* ---------- mandos ---------- */
+.opiniones__mandos { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--e4) var(--e6); margin-top: var(--e5); }
+.opiniones__control { display: flex; flex-wrap: wrap; gap: var(--e2); }
+.opiniones__acciones { display: flex; flex-wrap: wrap; gap: var(--e3); }
+.opiniones__parar .opiniones__icono-mover { display: none; }
+.opiniones__parar[aria-pressed="true"] .opiniones__icono-pausa { display: none; }
+.opiniones__parar[aria-pressed="true"] .opiniones__icono-mover { display: inline; }
+.quieto .opiniones__parar { display: none; }
+.quieto .opiniones__control { justify-content: flex-start; }
+
+/* ---------- entrada: la cinta sale disparada; las notas caen colgadas (−4° → 0, muelle) ---------- */
+.anima .opiniones__visor:not(.dentro) .opiniones__pista { transform: translateX(60%); opacity: 0; }
+.anima .opiniones__visor:not(.dentro) .opiniones__colgante { opacity: 0; transform: translateY(-26px) rotate(-4deg); }
+.anima .opiniones__visor:not(.dentro) .opiniones__cordel { transform: rotate(var(--cordel-giro, 0deg)) scaleY(0); }
+.anima .opiniones__visor:not(.dentro) .opiniones__caja { transform: translateX(110%); }
+.anima .opiniones__visor.dentro .opiniones__pista { transition: transform .95s var(--sale), opacity .25s linear; }
+.anima .opiniones__visor.dentro .opiniones__caja { transition: transform .8s var(--muelle-suave); }
+.anima .opiniones__visor.dentro .opiniones__cordel { transition: transform .45s var(--sale) calc(.55s + var(--i, 0) * 95ms); }
+.anima .opiniones__visor.dentro .opiniones__colgante { transition: opacity .2s linear calc(.7s + var(--i, 0) * 95ms), transform 1.25s var(--muelle) calc(.7s + var(--i, 0) * 95ms); }
+
+/* ---------- móvil y táctil: una nota y el borde de la siguiente, con scroll-snap ---------- */
+@media (hover: none), (pointer: coarse) {
+  .opiniones__carril { scroll-snap-type: x mandatory; }
+}
+@media (max-width: 699px) {
+  .opiniones { --nota-w: calc(100vw - 2 * var(--canal) - 52px); --hueco-nota: 16px; --caja-w: 48px; }
+  .opiniones__deriva { padding-left: calc(var(--canal) + 4px); padding-right: calc(var(--canal) + var(--caja-w)); }
+  .opiniones__cinta { left: calc(var(--canal) - 22px); }
+  .opiniones__medida { align-items: flex-start; }
+  .opiniones__cabeza { gap: var(--e4); }
+  .opiniones__mandos { flex-direction: column; align-items: stretch; }
+  .opiniones__control { justify-content: space-between; }
+  .opiniones__parar { flex: 1 1 auto; }
+  .opiniones__acciones { flex-direction: column; }
+  .opiniones__acciones .boton { width: 100%; white-space: normal; text-align: center; padding-block: 10px; }
+}
+@media (max-width: 359px) {
+  .opiniones__cota-nota { --cota-letra: .9375rem; }
+  .opiniones__papel { padding-inline: 16px; }
+}
