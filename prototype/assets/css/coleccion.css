@@ -1,43 +1,38 @@
 /* =====================================================================================
-   «Nuestra colección» (#coleccion) — tres piezas enteras en su hueco, en un mismo alzado:
-   tabiques rayados compartidos, un solo suelo y una cota con su lema a mano encima de cada
-   foto. Escritorio (≥ 900): un alzado de tres nichos (subgrid, las tres fotos a la misma
-   altura porque cada columna es proporcional a su foto). 600-899: pieza y texto en fila.
-   < 600: una columna; cada pieza con sus propios tabiques y su suelo.
-   Movimiento: el suelo se traza, los tabiques suben, las fotos caen y rebotan en su hueco
-   y las cotas se abren (coleccion.js). Cursor: pieza +6 px, zoom 1,06 hacia el cursor y la
-   cota vuelve a medir.
+   «Nuestra colección» (#coleccion) — tres piezas enteras, en un mismo alzado.
+   Pase de elegancia (8-oct-2026): sin tabiques ni suelo rayados y sin cotas. Marcos limpios
+   (la foto entera con un filo de 1 px), una sola línea de suelo fina y el lema como línea de
+   texto bajo el título. Escritorio (≥ 900): tres fotos a la misma altura (cada columna es
+   proporcional a su foto). 600-899: pieza y texto en fila. < 600: una columna.
+   Movimiento: la línea de suelo se traza y las fotos se asientan (muelle suave). Cursor: la
+   foto sube 4 px y aparece su sombra (reacción quieta, nada sigue al ratón).
    ===================================================================================== */
-.coleccion { --tab: clamp(12px, 1.5vw, 40px); --suelo-h: clamp(10px, .5vw + 7px, 16px); }
+.coleccion { --tab: 0px; --hueco: clamp(20px, 2.4vw, 48px); --suelo-h: clamp(14px, .8vw + 8px, 22px); --suelo-color: rgba(18, 18, 18, .22); }
 .coleccion__cabeza { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--e5) var(--e6); }
 .coleccion__cabeza .titular { max-width: none; }
 .coleccion__medir svg { width: 22px; height: 22px; }
 
-.coleccion__plano { position: relative; display: grid; row-gap: clamp(56px, 8vw, 80px); margin-top: clamp(28px, 4vw, 64px); }
+.coleccion__plano { position: relative; display: grid; row-gap: clamp(56px, 8vw, 80px); margin-top: clamp(36px, 4.4vw, 80px); }
 .coleccion__plano > .coleccion__tabique, .coleccion__plano > .coleccion__suelo { display: none; }
 
 /* --- la pieza (una columna) ------------------------------------------------------------- */
 .coleccion__pieza { position: relative; display: grid; grid-template-columns: var(--tab) minmax(0, 1fr) var(--tab); grid-template-rows: auto auto auto auto; align-content: start; }
-.coleccion__pieza > .cota { grid-column: 2; grid-row: 1; margin-bottom: 14px; }
-.coleccion__pieza .cota__frase { font-size: var(--t-cota); }
 .coleccion__tab { grid-row: 2; }
-.coleccion__tab--izq { grid-column: 1; border-right: 0; }
-.coleccion__tab--der { grid-column: 3; border-left: 0; }
+.coleccion__tab--izq { grid-column: 1; }
+.coleccion__tab--der { grid-column: 3; }
 .coleccion__caida { grid-column: 2; grid-row: 2; position: relative; z-index: 1; }
-.coleccion__suelo-pieza { grid-column: 1 / -1; grid-row: 3; height: var(--suelo-h); margin-inline: calc(var(--tab) * -.6); }
-.coleccion__texto { grid-column: 2; grid-row: 4; display: grid; justify-items: start; align-content: start; gap: var(--e2); padding-top: var(--e5); }
+.coleccion__suelo-pieza { grid-column: 1 / -1; grid-row: 3; height: var(--suelo-h); }
+.coleccion__texto { grid-column: 2; grid-row: 4; display: grid; justify-items: start; align-content: start; gap: var(--e2); padding-top: var(--e2); }
+.coleccion__lema { font-weight: 500; color: var(--tinta); line-height: 1.45; }
 .coleccion__linea { color: var(--lapiz); max-width: 36ch; }
-.coleccion__enlace { margin-top: -4px; }
+.coleccion__enlace { margin-top: 2px; }
 
-/* el marco es el enlace: la pieza se eleva, la foto se acerca hacia el cursor */
-.coleccion__marco { --marco-g: clamp(4px, .28vw + 2px, 8px); display: block; isolation: isolate; text-decoration: none; transition: transform .6s var(--muelle); }
-.coleccion__marco::after { content: ""; position: absolute; inset: 0; box-shadow: 0 34px 50px -26px rgba(12, 43, 68, .55), 0 10px 18px -12px rgba(19, 108, 168, .4); opacity: 0; transition: opacity .35s linear; pointer-events: none; }
-.coleccion__marco img { transition: transform var(--d-larga) var(--sale); }
-.coleccion__pieza:hover .coleccion__marco, .coleccion__marco:focus-visible { transform: translateY(-6px); }
+/* el marco es el enlace: con el cursor (o el foco), la foto sube 4 px y aparece su sombra */
+.coleccion__marco { display: block; text-decoration: none; }
+.coleccion__pieza:hover .coleccion__marco img, .coleccion__marco:focus-visible img { transform: translateY(-4px); }
 .coleccion__pieza:hover .coleccion__marco::after, .coleccion__marco:focus-visible::after { opacity: 1; }
-.coleccion__pieza:hover .coleccion__marco img, .coleccion__marco:focus-visible img { transform: scale(1.06); }
-.coleccion__marco:active { transform: translateY(-2px) scale(.99); transition-duration: .12s; }
-.coleccion__marco:focus-visible { outline-offset: 5px; border-radius: 0; }
+.coleccion__marco:active img { transform: translateY(-1px); transition-duration: .12s; }
+.coleccion__marco:focus-visible { outline-offset: 6px; border-radius: 0; }
 
 /* --- 600-899: la pieza a la izquierda, su texto a la derecha ---------------------------- */
 @media (min-width: 600px) and (max-width: 899px) {
@@ -46,51 +41,41 @@
   .coleccion__suelo-pieza { grid-column: 1 / 4; }
 }
 
-/* --- ≥ 900: un solo alzado, tres nichos, tabiques compartidos y un solo suelo ------------- */
+/* --- ≥ 900: un solo alzado, tres fotos a la misma altura y una sola línea de suelo ------------- */
 @media (min-width: 900px) {
   .coleccion__plano {
-    grid-template-columns: var(--tab) minmax(0, 1.4252fr) var(--tab) minmax(0, 1.3889fr) var(--tab) minmax(0, 1.3777fr) var(--tab);
+    grid-template-columns: minmax(0, 1.4252fr) var(--hueco) minmax(0, 1.3889fr) var(--hueco) minmax(0, 1.3777fr);
     grid-template-rows: auto auto var(--suelo-h) auto; row-gap: 0;
   }
-  .coleccion__plano > .coleccion__tabique { display: block; grid-row: 2; }
-  .coleccion__tabique--1 { grid-column: 1; border-right: 0; }
-  .coleccion__tabique--2 { grid-column: 3; border-inline: 0; }
-  .coleccion__tabique--3 { grid-column: 5; border-inline: 0; }
-  .coleccion__tabique--4 { grid-column: 7; border-left: 0; }
-  .coleccion__plano > .coleccion__suelo { display: block; grid-row: 3; grid-column: 1 / -1; height: var(--suelo-h); margin-inline: calc(var(--tab) * -1.2); }
+  .coleccion__plano > .coleccion__suelo { display: block; grid-row: 3; grid-column: 1 / -1; height: var(--suelo-h); }
   .coleccion__pieza { grid-row: 1 / span 4; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; }
-  .coleccion__pieza--1 { grid-column: 2; } .coleccion__pieza--2 { grid-column: 4; } .coleccion__pieza--3 { grid-column: 6; }
-  .coleccion__pieza > .cota, .coleccion__caida, .coleccion__texto { grid-column: 1; }
+  .coleccion__pieza--1 { grid-column: 1; } .coleccion__pieza--2 { grid-column: 3; } .coleccion__pieza--3 { grid-column: 5; }
+  .coleccion__caida, .coleccion__texto { grid-column: 1; }
   .coleccion__pieza > .coleccion__tab, .coleccion__suelo-pieza { display: none; }
-  .coleccion__texto { padding: var(--e6) clamp(6px, 1vw, 20px) 0 0; }
+  .coleccion__texto { padding: var(--e3) clamp(6px, 1vw, 20px) 0 0; }
 }
 
-/* --- entrada (solo con movimiento): suelo, tabiques, fotos que caen, textos ----------------
-   El alzado (data-revelar) trae el suelo y los tabiques compartidos; cada pieza (data-revelar)
-   trae su caída, sus tabiques del móvil y su texto. Las cotas las abre coleccion.js. */
+/* --- entrada (solo con movimiento): la línea de suelo se traza y las fotos se asientan ---------- */
 .anima .coleccion__plano:not(.dentro) > .coleccion__suelo, .anima .coleccion__pieza:not(.dentro) .coleccion__suelo-pieza { opacity: 0; transform: scaleX(.15); }
-.anima .coleccion__plano:not(.dentro) > .coleccion__tabique, .anima .coleccion__pieza:not(.dentro) .coleccion__tab { transform: scaleY(0); }
-.anima .coleccion__pieza:not(.dentro) .coleccion__caida { opacity: 0; transform: translateY(-90px) rotate(-1.5deg); }
-.anima .coleccion__pieza:not(.dentro) .coleccion__texto { opacity: 0; }
-.anima .coleccion__plano.dentro > .coleccion__suelo, .anima .coleccion__pieza.dentro .coleccion__suelo-pieza { transition: opacity .2s linear, transform .9s var(--sale); }
-.anima .coleccion__plano.dentro > .coleccion__tabique, .anima .coleccion__pieza.dentro .coleccion__tab { transition: transform .8s var(--muelle-suave) var(--rv, .12s); }
-.anima .coleccion__pieza.dentro .coleccion__caida { transition: opacity .25s linear var(--rv, .3s), transform .95s var(--caida) var(--rv, .3s); }
-.anima .coleccion__pieza.dentro .coleccion__texto { transition: opacity .6s linear var(--rv-t, 1s); }
-.coleccion__tabique--2 { --rv: .2s; } .coleccion__tabique--3 { --rv: .28s; } .coleccion__tabique--4 { --rv: .36s; }
-.coleccion__pieza--1 .coleccion__caida { --rv: .3s; } .coleccion__pieza--2 .coleccion__caida { --rv: .44s; } .coleccion__pieza--3 .coleccion__caida { --rv: .58s; }
-.coleccion__pieza--2 .coleccion__texto { --rv-t: 1.12s; } .coleccion__pieza--3 .coleccion__texto { --rv-t: 1.24s; }
+.anima .coleccion__pieza:not(.dentro) .coleccion__caida { opacity: 0; transform: translateY(28px); }
+.anima .coleccion__pieza:not(.dentro) .coleccion__texto { opacity: 0; transform: translateY(12px); }
+.anima .coleccion__plano.dentro > .coleccion__suelo, .anima .coleccion__pieza.dentro .coleccion__suelo-pieza { transition: opacity .3s linear, transform 1.1s var(--sale); }
+.anima .coleccion__pieza.dentro .coleccion__caida { transition: opacity .7s linear var(--rv, .2s), transform 1.1s var(--sale) var(--rv, .2s); }
+.anima .coleccion__pieza.dentro .coleccion__texto { transition: opacity .7s linear var(--rv-t, .6s), transform 1s var(--sale) var(--rv-t, .6s); }
+.coleccion__pieza--1 .coleccion__caida { --rv: .15s; } .coleccion__pieza--2 .coleccion__caida { --rv: .27s; } .coleccion__pieza--3 .coleccion__caida { --rv: .39s; }
+.coleccion__pieza--1 .coleccion__texto { --rv-t: .5s; } .coleccion__pieza--2 .coleccion__texto { --rv-t: .62s; } .coleccion__pieza--3 .coleccion__texto { --rv-t: .74s; }
 @media (max-width: 899px) {
-  .coleccion__pieza .coleccion__caida, .coleccion__pieza .coleccion__tab { --rv: .2s; }
-  .coleccion__pieza .coleccion__texto { --rv-t: .9s; }
+  .coleccion__pieza .coleccion__caida { --rv: .15s; }
+  .coleccion__pieza .coleccion__texto { --rv-t: .5s; }
 }
 
 
-/* ---------- «Medir mi hueco» (8-oct-2026): cada 3,6 s se abre una cota sobre el botón, el icono mide
-   de borde a borde y un brillo lo recorre. Solo en pantalla (data-bucle) y nunca con .quieto ---------- */
+/* ---------- «Medir mi hueco» (gustó, se queda): cada 3,6 s se abre una cota sobre el botón, el icono
+   mide de borde a borde y un brillo lo recorre. Solo en pantalla (data-bucle) y nunca con .quieto ---------- */
 .coleccion__medir-zona { position: relative; display: inline-flex; flex: none; padding-top: 22px; }
 .coleccion__medir-cota { position: absolute; left: 4px; right: 4px; top: 4px; height: 12px; color: var(--azul); pointer-events: none; }
 .coleccion__medir-cota i { position: absolute; display: block; background: currentColor; }
-.coleccion__medir-cota .mc-linea { left: 0; right: 0; top: 5px; height: 2px; transform: scaleX(0); }
+.coleccion__medir-cota .mc-linea { left: 0; right: 0; top: 5.25px; height: 1.5px; transform: scaleX(0); }
 .coleccion__medir-cota .mc-punta { top: 0; width: 11px; height: 12px; opacity: 0; }
 .coleccion__medir-cota .mc-punta--ini { left: 0; clip-path: polygon(0 50%, 100% 0, 100% 100%); }
 .coleccion__medir-cota .mc-punta--fin { right: 0; clip-path: polygon(100% 50%, 0 0, 0 100%); }
@@ -99,21 +84,21 @@
 .coleccion__medir { overflow: hidden; isolation: isolate; }
 .coleccion__medir::after {
   content: ""; position: absolute; z-index: 0; top: -20%; bottom: -20%; left: 0; width: 46%; pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .6) 45%, rgba(255, 255, 255, .15) 62%, transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .34) 45%, rgba(255, 255, 255, .08) 62%, transparent);
   transform: translateX(-140%) skewX(-18deg); opacity: 0;
 }
 .coleccion__medir > * { position: relative; z-index: 1; }
 .coleccion__medir-icono { width: 24px; height: 24px; overflow: visible; margin: 0 8px 0 6px; }
-.coleccion__medir-icono path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.coleccion__medir-icono path { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .coleccion__medir-icono :is(.mi-izq, .mi-der, .mi-linea) { transform-box: view-box; }
 .coleccion__medir-icono .mi-linea { transform-origin: 12px 12px; }
-.anima .coleccion__medir-zona .mi-izq { animation: coleccion-mide-izq 3.6s var(--muelle) infinite; }
-.anima .coleccion__medir-zona .mi-der { animation: coleccion-mide-der 3.6s var(--muelle) infinite; }
-.anima .coleccion__medir-zona .mi-linea { animation: coleccion-mide-linea 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .mi-izq { animation: coleccion-mide-izq 3.6s var(--muelle-suave) infinite; }
+.anima .coleccion__medir-zona .mi-der { animation: coleccion-mide-der 3.6s var(--muelle-suave) infinite; }
+.anima .coleccion__medir-zona .mi-linea { animation: coleccion-mide-linea 3.6s var(--muelle-suave) infinite; }
 .anima .coleccion__medir-zona .coleccion__medir::after { animation: coleccion-brillo 3.6s cubic-bezier(.45, 0, .2, 1) infinite; }
 .anima .coleccion__medir-zona .mc-linea { animation: coleccion-cota-linea 3.6s cubic-bezier(.16, 1, .3, 1) infinite; }
-.anima .coleccion__medir-zona .mc-punta--ini { animation: coleccion-cota-ini 3.6s var(--muelle) infinite; }
-.anima .coleccion__medir-zona .mc-punta--fin { animation: coleccion-cota-fin 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .mc-punta--ini { animation: coleccion-cota-ini 3.6s var(--muelle-suave) infinite; }
+.anima .coleccion__medir-zona .mc-punta--fin { animation: coleccion-cota-fin 3.6s var(--muelle-suave) infinite; }
 @keyframes coleccion-mide-izq { 0%, 4%, 62%, 100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 46% { transform: translateX(-7px); } }
 @keyframes coleccion-mide-der { 0%, 4%, 62%, 100% { transform: translateX(0); } 20% { transform: translateX(7px); } 46% { transform: translateX(7px); } }
 @keyframes coleccion-mide-linea { 0%, 4%, 62%, 100% { transform: scaleX(1); } 20% { transform: scaleX(1.85); } 46% { transform: scaleX(1.85); } }
@@ -122,7 +107,7 @@
 @keyframes coleccion-cota-fin { 0%, 4% { transform: translateX(calc(var(--mc-mitad, 90px) * -1)); opacity: 0; } 8% { opacity: 1; } 24% { transform: translateX(0); } 50% { transform: translateX(0); opacity: 1; } 62%, 100% { transform: translateX(0); opacity: 0; } }
 @keyframes coleccion-brillo { 0%, 22% { transform: translateX(-140%) skewX(-18deg); opacity: 0; } 24% { opacity: 1; } 46% { transform: translateX(330%) skewX(-18deg); opacity: 1; } 48%, 100% { transform: translateX(330%) skewX(-18deg); opacity: 0; } }
 /* cursor o foco: se para el bucle, la cota queda abierta y el icono se estira con muelle */
-.coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) :is(.mi-izq, .mi-der, .mi-linea, .mc-linea, .mc-punta) { animation: none !important; transition: transform .55s var(--muelle), opacity .2s linear; }
+.coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) :is(.mi-izq, .mi-der, .mi-linea, .mc-linea, .mc-punta) { animation: none !important; transition: transform .55s var(--muelle-suave), opacity .2s linear; }
 .coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) .mc-linea { transform: scaleX(1); }
 .coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) .mc-punta { opacity: 1; }
 .coleccion__medir:is(:hover, :focus-visible) .mi-izq { transform: translateX(-7px); }
@@ -131,9 +116,8 @@
 
 /* ---------- Iconos de catálogo junto a «Ver…»: al pasar el cursor, la hoja pasa de página ---------- */
 .coleccion__enlace { display: inline-flex; align-items: center; gap: 8px; }
-.coleccion__cat { width: 22px; height: 22px; flex: none; overflow: visible; }
-.coleccion__cat path { fill: var(--blanco, #fff); stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
-.coleccion__cat .cat-fondo { fill: var(--azul-plano); }
-.coleccion__cat .cat-hoja { transform-box: view-box; transform-origin: 12px 12px; transition: transform .6s var(--muelle, cubic-bezier(.34, 1.56, .64, 1)); }
+.coleccion__cat { width: 20px; height: 20px; flex: none; overflow: visible; }
+.coleccion__cat path { fill: var(--blanco, #fff); stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
+.coleccion__cat .cat-hoja { transform-box: view-box; transform-origin: 12px 12px; transition: transform .6s var(--muelle-suave); }
 .coleccion__enlace:is(:hover, :focus-visible) .cat-hoja { transform: scaleX(-1); }
 .coleccion__pieza:hover .coleccion__enlace .cat-hoja { transform: scaleX(-1); }

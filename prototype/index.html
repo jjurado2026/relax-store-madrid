@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://relaxstoremadrid.com/">
 <!-- Prototipo de propuesta: fuera de los buscadores. En la web definitiva, quitar esta línea. -->
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#F6F8FA">
+<meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:site_name" content="Relax Store Las Rozas">
@@ -51,9 +51,9 @@
 <link rel="preload" href="assets/fonts/gochi-hand-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/hero-002-1280.webp" imagesrcset="assets/img/hero-002-640.webp 640w, assets/img/hero-002-960.webp 960w, assets/img/hero-002-1280.webp 1280w, assets/img/hero-002-1920.webp 1920w, assets/img/hero-002-2560.webp 2560w" imagesizes="(orientation: landscape) and (min-width: 700px) 50vw, min(calc(100vw - 60px), 58vh)" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/home.css?v=muz8a2t8">
+<link rel="stylesheet" href="assets/css/home.css?v=muzsqsnw">
 <script src="assets/js/base.js" defer></script>
-<script src="assets/js/home.js?v=muz8a2t8" defer></script>
+<script src="assets/js/home.js?v=muzsqsnw" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,7 +91,7 @@
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 
 <header class="cab" data-cab>
-  <a class="cab__logo" href="./" aria-label="Relax Store Las Rozas, inicio"><img src="assets/img/logo-relax-store.png" width="876" height="160" alt="Relax Store Las Rozas"></a>
+  <a class="cab__logo" href="./" aria-label="Relax Store Las Rozas, inicio"><img src="assets/img/logo-relax-store-blanco.png" width="876" height="160" alt="Relax Store Las Rozas"></a>
   <nav class="cab__nav" aria-label="Principal">
     <a href="#postales">Sofás a medida</a>
     <a href="#coleccion-camas">Camas a medida</a>
@@ -131,7 +131,6 @@
     <div class="cota" data-cota="hero" aria-hidden="true">
       <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
       <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-      <span class="cota__marca"></span>
       <span class="cota__texto"><span class="cota__frase">Camas y sofás a medida</span><span class="cota__firma">Rótulo de la tienda, C/ Turín 17D</span></span>
     </div>
     <span class="tabique hueco__tabique hueco__tabique--izq plano__columna plano__columna--izq" aria-hidden="true"></span>
@@ -140,11 +139,10 @@
            srcset="assets/img/hero-002-640.webp 640w, assets/img/hero-002-960.webp 960w, assets/img/hero-002-1280.webp 1280w, assets/img/hero-002-1920.webp 1920w, assets/img/hero-002-2560.webp 2560w"
            sizes="(orientation: landscape) and (min-width: 700px) 50vw, min(calc(100vw - 60px), 58vh)" width="1280" height="1222" fetchpriority="high" decoding="async"
            alt="Salón con un sofá de terciopelo azul petróleo bajo un cartel triangular iluminado de Relax Store">
-      <div class="mira" aria-hidden="true"><span class="mira__h"></span><span class="mira__v"></span></div>
     </div>
     <span class="tabique hueco__tabique hueco__tabique--der plano__columna plano__columna--der" aria-hidden="true"></span>
     <span class="suelo hueco__suelo plano__suelo" aria-hidden="true"></span>
-    <figcaption class="sr">El sofá entra justo en su hueco, entre dos columnas, con su línea de cota encima.</figcaption>
+    <figcaption class="sr">El sofá entra justo en su hueco, entre dos paredes, con su línea de cota encima.</figcaption>
   </figure>
   <span class="suelo hero__suelo" aria-hidden="true"></span>
 
@@ -189,11 +187,6 @@
       <span class="suelo coleccion__suelo" aria-hidden="true"></span>
 
       <article class="coleccion__pieza coleccion__pieza--1" id="coleccion-sofas" aria-labelledby="coleccion-sofas-t" data-revelar>
-        <div class="cota" data-cota="manual" aria-hidden="true">
-          <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-          <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-          <span class="cota__texto"><span class="cota__frase">Fabricamos tus ideas</span></span>
-        </div>
         <span class="tabique coleccion__tab coleccion__tab--izq" aria-hidden="true"></span>
         <div class="coleccion__caida">
           <a class="marco coleccion__marco" href="#postales" aria-label="Ver los modelos de sofá">
@@ -208,17 +201,13 @@
         <span class="suelo coleccion__suelo-pieza" aria-hidden="true"></span>
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-sofas-t">Sofás a medida</h3>
+          <p class="coleccion__lema">Fabricamos tus ideas</p>
           <p class="coleccion__linea">Ancho de los asientos, altura del respaldo, arcón y reposabrazos, a tu medida.</p>
           <a class="enlace coleccion__enlace" href="#postales"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver los modelos de sofá</span></a>
         </div>
       </article>
 
       <article class="coleccion__pieza coleccion__pieza--2" id="coleccion-colchones" aria-labelledby="coleccion-colchones-t" data-revelar>
-        <div class="cota" data-cota="manual" aria-hidden="true">
-          <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-          <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-          <span class="cota__texto"><span class="cota__frase">Cuidamos tu descanso</span></span>
-        </div>
         <span class="tabique coleccion__tab coleccion__tab--izq" aria-hidden="true"></span>
         <div class="coleccion__caida">
           <a class="marco coleccion__marco" href="https://relaxstoremadrid.com/colchones/" aria-label="Ver el catálogo de colchones">
@@ -233,17 +222,13 @@
         <span class="suelo coleccion__suelo-pieza" aria-hidden="true"></span>
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-colchones-t">Colchones</h3>
+          <p class="coleccion__lema">Cuidamos tu descanso</p>
           <p class="coleccion__linea">Time Reset, SportReset y Karibian, en anchos de 80 a 200 cm.</p>
           <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/colchones/"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver el catálogo de colchones</span></a>
         </div>
       </article>
 
       <article class="coleccion__pieza coleccion__pieza--3" id="coleccion-camas" aria-labelledby="coleccion-camas-t" data-revelar>
-        <div class="cota" data-cota="manual" aria-hidden="true">
-          <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-          <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-          <span class="cota__texto"><span class="cota__frase">Diseño y funcionalidad</span></span>
-        </div>
         <span class="tabique coleccion__tab coleccion__tab--izq" aria-hidden="true"></span>
         <div class="coleccion__caida">
           <a class="marco coleccion__marco" href="https://relaxstoremadrid.com/camas-personalizadas/" aria-label="Ver el catálogo de camas">
@@ -258,6 +243,7 @@
         <span class="suelo coleccion__suelo-pieza" aria-hidden="true"></span>
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-camas-t">Camas a medida</h3>
+          <p class="coleccion__lema">Diseño y funcionalidad</p>
           <p class="coleccion__linea">Camas tapizadas, canapés, cabeceros y bancadas.</p>
           <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/camas-personalizadas/"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver el catálogo de camas</span></a>
         </div>
@@ -278,14 +264,14 @@
       <rect x="80" y="5" width="55" height="68" rx="1.5" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="0 6.8" stroke-linecap="round"/>
       <rect x="86.5" y="11.5" width="42" height="55" fill="none" stroke="#8EC2EC" stroke-width="1.2"/>
       <path d="M107.5 22 L121 48 L94 48 Z" fill="#fff"/>
-      <g fill="none" stroke="#0C2B44" stroke-opacity=".8">
+      <g fill="none" stroke="#121212" stroke-opacity=".8">
         <circle cx="52" cy="52" r="45" stroke-width="2.4"/>
         <circle cx="52" cy="52" r="25.5" stroke-width="1.4"/>
         <path d="M94 30 q 6 -4.5 12 0 t 12 0 t 12 0 M94 42 q 6 -4.5 12 0 t 12 0 t 12 0 M94 54 q 6 -4.5 12 0 t 12 0 t 12 0" stroke-width="2.1"/>
       </g>
-      <path d="M52 41 L61.5 58 L42.5 58 Z" fill="#0C2B44" fill-opacity=".8"/>
-      <text class="postales__matasellos-texto" fill="#0C2B44" fill-opacity=".9"><textPath href="#postales-arco-arriba" startOffset="50%" text-anchor="middle">Las Rozas</textPath></text>
-      <text class="postales__matasellos-texto" fill="#0C2B44" fill-opacity=".9"><textPath href="#postales-arco-abajo" startOffset="50%" text-anchor="middle">C/ Turín 17D</textPath></text>
+      <path d="M52 41 L61.5 58 L42.5 58 Z" fill="#121212" fill-opacity=".8"/>
+      <text class="postales__matasellos-texto" fill="#121212" fill-opacity=".9"><textPath href="#postales-arco-arriba" startOffset="50%" text-anchor="middle">Las Rozas</textPath></text>
+      <text class="postales__matasellos-texto" fill="#121212" fill-opacity=".9"><textPath href="#postales-arco-abajo" startOffset="50%" text-anchor="middle">C/ Turín 17D</textPath></text>
     </symbol>
   </svg>
 
@@ -976,19 +962,19 @@
             <summary><span>¿Cómo mido mi hueco?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></summary>
             <ul class="croquis__guia-lista">
               <li>
-                <svg viewBox="0 0 120 64" aria-hidden="true"><rect x="2" y="8" width="12" height="48" fill="url(#croquis-rayado-guia)" stroke="#0C2B44" stroke-width="1.6"/><rect x="106" y="8" width="12" height="48" fill="url(#croquis-rayado-guia)" stroke="#0C2B44" stroke-width="1.6"/><path d="M16 32h88" stroke="#136CA8" stroke-width="2"/><path d="M16 32l9-4.5v9zM104 32l-9-4.5v9z" fill="#136CA8"/></svg>
+                <svg viewBox="0 0 120 64" aria-hidden="true"><rect x="2" y="8" width="12" height="48" fill="url(#croquis-rayado-guia)" stroke="#121212" stroke-width="1.6"/><rect x="106" y="8" width="12" height="48" fill="url(#croquis-rayado-guia)" stroke="#121212" stroke-width="1.6"/><path d="M16 32h88" stroke="#136CA8" stroke-width="2"/><path d="M16 32l9-4.5v9zM104 32l-9-4.5v9z" fill="#136CA8"/></svg>
                 <p><strong>Ancho</strong> <span class="croquis__nota-mano">de pared a pared</span></p>
               </li>
               <li>
-                <svg viewBox="0 0 120 64" aria-hidden="true"><rect x="2" y="4" width="12" height="56" fill="url(#croquis-rayado-guia)" stroke="#0C2B44" stroke-width="1.6"/><rect x="14" y="48" width="5" height="12" fill="#A9BBCA"/><path d="M14 60h104" stroke="#0C2B44" stroke-width="1.6"/><path d="M19 38h86" stroke="#136CA8" stroke-width="2"/><path d="M19 38l9-4.5v9zM105 38l-9-4.5v9z" fill="#136CA8"/><path d="M19 30v18M105 30v30" stroke="#136CA8" stroke-width="1.2" stroke-dasharray="3 3"/></svg>
+                <svg viewBox="0 0 120 64" aria-hidden="true"><rect x="2" y="4" width="12" height="56" fill="url(#croquis-rayado-guia)" stroke="#121212" stroke-width="1.6"/><rect x="14" y="48" width="5" height="12" fill="#A9BBCA"/><path d="M14 60h104" stroke="#121212" stroke-width="1.6"/><path d="M19 38h86" stroke="#136CA8" stroke-width="2"/><path d="M19 38l9-4.5v9zM105 38l-9-4.5v9z" fill="#136CA8"/><path d="M19 30v18M105 30v30" stroke="#136CA8" stroke-width="1.2" stroke-dasharray="3 3"/></svg>
                 <p><strong>Fondo</strong> <span class="croquis__nota-mano">desde el rodapié</span></p>
               </li>
               <li>
-                <svg viewBox="0 0 120 64" aria-hidden="true"><path d="M2 60V10h30v50M88 60V10h30v50" fill="none" stroke="#0C2B44" stroke-width="1.6"/><path d="M32 10h56" stroke="#0C2B44" stroke-width="1.6"/><rect x="26" y="10" width="6" height="50" fill="url(#croquis-rayado-guia)"/><rect x="88" y="10" width="6" height="50" fill="url(#croquis-rayado-guia)"/><path d="M34 36h52" stroke="#136CA8" stroke-width="2"/><path d="M34 36l9-4.5v9zM86 36l-9-4.5v9z" fill="#136CA8"/></svg>
+                <svg viewBox="0 0 120 64" aria-hidden="true"><path d="M2 60V10h30v50M88 60V10h30v50" fill="none" stroke="#121212" stroke-width="1.6"/><path d="M32 10h56" stroke="#121212" stroke-width="1.6"/><rect x="26" y="10" width="6" height="50" fill="url(#croquis-rayado-guia)"/><rect x="88" y="10" width="6" height="50" fill="url(#croquis-rayado-guia)"/><path d="M34 36h52" stroke="#136CA8" stroke-width="2"/><path d="M34 36l9-4.5v9zM86 36l-9-4.5v9z" fill="#136CA8"/></svg>
                 <p><strong>Paso</strong> <span class="croquis__nota-mano">puerta, pasillo y ascensor</span></p>
               </li>
             </ul>
-            <svg width="0" height="0" class="croquis__defs" aria-hidden="true" focusable="false"><defs><pattern id="croquis-rayado-guia" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#0C2B44" stroke-width="1.2"/></pattern></defs></svg>
+            <svg width="0" height="0" class="croquis__defs" aria-hidden="true" focusable="false"><defs><pattern id="croquis-rayado-guia" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#121212" stroke-width="1.2"/></pattern></defs></svg>
           </details>
         </div>
       </div>
@@ -998,25 +984,25 @@
           <svg class="croquis__svg" data-svg viewBox="0 0 560 320" role="img" aria-labelledby="croquis-svg-t">
             <title id="croquis-svg-t">Croquis vacío: pon el ancho para dibujar tu hueco.</title>
             <defs>
-              <pattern id="croquis-rayado" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0C2B44" stroke-width="1.5"/></pattern>
+              <pattern id="croquis-rayado" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#121212" stroke-width="1.5"/></pattern>
             </defs>
             <rect class="croquis__papel" width="560" height="320" fill="#fff"/>
             <g class="croquis__cuadricula" data-el="cuadricula"><path class="croquis__mm" data-p="mm" vector-effect="non-scaling-stroke"/><path class="croquis__cm50" data-p="m50" vector-effect="non-scaling-stroke"/><path class="croquis__m1" data-p="m1" vector-effect="non-scaling-stroke"/></g>
 
             <g class="croquis__muro">
               <rect x="-10" y="40" width="580" height="18" fill="url(#croquis-rayado)"/>
-              <path d="M-10 40H570M-10 58H570" stroke="#0C2B44" stroke-width="2"/>
+              <path d="M-10 40H570M-10 58H570" stroke="#121212" stroke-width="2"/>
             </g>
             <g class="croquis__capa croquis__esquina" data-el="esquina">
               <rect x="0" y="0" width="18" height="300" fill="url(#croquis-rayado)"/>
-              <path d="M0 0V300M18 18V300" stroke="#0C2B44" stroke-width="2"/>
+              <path d="M0 0V300M18 18V300" stroke="#121212" stroke-width="2"/>
             </g>
-            <g class="croquis__capa croquis__pilar" data-el="pilar-izq"><rect width="35" height="35" fill="url(#croquis-rayado)" stroke="#0C2B44" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
-            <g class="croquis__capa croquis__pilar" data-el="pilar-der"><rect width="35" height="35" fill="url(#croquis-rayado)" stroke="#0C2B44" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
+            <g class="croquis__capa croquis__pilar" data-el="pilar-izq"><rect width="35" height="35" fill="url(#croquis-rayado)" stroke="#121212" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
+            <g class="croquis__capa croquis__pilar" data-el="pilar-der"><rect width="35" height="35" fill="url(#croquis-rayado)" stroke="#121212" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
             <g class="croquis__capa croquis__puerta" data-el="puerta">
-              <path d="M0 0H32M112 0H144" stroke="#0C2B44" stroke-width="5"/>
-              <path d="M32 0V-80" stroke="#0C2B44" stroke-width="2.5"/>
-              <path d="M32 -80A80 80 0 0 1 112 0" fill="none" stroke="#0C2B44" stroke-width="1.2" stroke-dasharray="4 4"/>
+              <path d="M0 0H32M112 0H144" stroke="#121212" stroke-width="5"/>
+              <path d="M32 0V-80" stroke="#121212" stroke-width="2.5"/>
+              <path d="M32 -80A80 80 0 0 1 112 0" fill="none" stroke="#121212" stroke-width="1.2" stroke-dasharray="4 4"/>
             </g>
 
             <g class="croquis__hueco" data-el="hueco"><rect width="1" height="1" vector-effect="non-scaling-stroke"/></g>
@@ -1047,10 +1033,10 @@
             </g>
 
             <g class="croquis__escala" data-el="escala">
-              <g data-p="barra"><path d="M0 0H1" stroke="#0C2B44" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
-              <g data-p="m0"><path d="M0 -5V5" stroke="#0C2B44" stroke-width="2"/></g>
-              <g data-p="m1"><path d="M0 -3V3" stroke="#0C2B44" stroke-width="1.5"/></g>
-              <g data-p="m2"><path d="M0 -5V5" stroke="#0C2B44" stroke-width="2"/></g>
+              <g data-p="barra"><path d="M0 0H1" stroke="#121212" stroke-width="2" vector-effect="non-scaling-stroke"/></g>
+              <g data-p="m0"><path d="M0 -5V5" stroke="#121212" stroke-width="2"/></g>
+              <g data-p="m1"><path d="M0 -3V3" stroke="#121212" stroke-width="1.5"/></g>
+              <g data-p="m2"><path d="M0 -5V5" stroke="#121212" stroke-width="2"/></g>
               <g data-p="texto"><text>1 m</text></g>
             </g>
           </svg>
@@ -1082,11 +1068,7 @@
     <h2 class="titular opiniones__titulo" id="opiniones-titulo">4,9 en Google, con 404 reseñas</h2>
     <div class="opiniones__medida" aria-hidden="true">
       <span class="opiniones__estrellas">★★★★★</span>
-      <div class="cota cota--ajustada opiniones__cota" data-cota aria-hidden="true">
-        <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-        <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-        <span class="cota__texto"><span class="cota__frase">la medida exacta del hueco</span><span class="cota__firma">Carlos M., la frase que destaca Google</span></span>
-      </div>
+      <p class="opiniones__frase">«la medida exacta del hueco»<span class="opiniones__frase-firma">Carlos M., la frase que destaca Google</span></p>
     </div>
   </div>
 
@@ -1116,11 +1098,7 @@
                   <blockquote class="opiniones__texto"><p>Servicio impecable y excelente calidad en sus colchones y canapés !!!, gente muy seria y confiable , tercera experiencia comprándole camas y colchones en 10 años y no se me ocurre buscar otro proveedor , precios competitivos y confianza absoluta .</p></blockquote>
                   <p class="opiniones__firma"><span class="opiniones__autor" id="opi-2">Armando Sucre</span><span class="opiniones__origen" title="Publicado en Google">Reseña en Google</span></p>
                 </article>
-                <div class="cota cota--abajo opiniones__cota-nota" data-cota aria-hidden="true">
-                  <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-                  <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-                  <span class="cota__texto"><span class="cota__frase">tercera experiencia… en 10 años</span></span>
-                </div>
+                <p class="opiniones__apunte" aria-hidden="true">tercera experiencia… en 10 años</p>
               </div>
             </li>
             <li class="opiniones__nota" data-fecha="2026-05-07">
@@ -1132,11 +1110,7 @@
                   <blockquote class="opiniones__texto"><p>Es la segunda vez que compro colchones aquí y solo puedo recomendarles. La atención de 10 y la calidad de los productos muy alta, por eso hemos repetido 8 años después de nuestra primera compra</p></blockquote>
                   <p class="opiniones__firma"><span class="opiniones__autor" id="opi-3">maria colmenarejo</span><span class="opiniones__origen" title="Publicado en Google">Reseña en Google</span></p>
                 </article>
-                <div class="cota cota--abajo opiniones__cota-nota" data-cota aria-hidden="true">
-                  <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-                  <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-                  <span class="cota__texto"><span class="cota__frase">repetido 8 años después</span></span>
-                </div>
+                <p class="opiniones__apunte" aria-hidden="true">repetido 8 años después</p>
               </div>
             </li>
             <li class="opiniones__nota" data-fecha="2026-05-05">
@@ -1250,7 +1224,7 @@
     <ul class="valores__cadena" data-revelar data-bucle>
       <li class="valores__tramo" style="--i:0">
         <h3 class="valores__valor">Amabilidad</h3>
-        <div class="valores__cota" aria-hidden="true"><span class="valores__ref valores__ref--ini"></span><span class="valores__ref valores__ref--fin"></span><span class="valores__linea"></span><span class="valores__punta valores__punta--ini"></span><span class="valores__punta valores__punta--fin"></span></div>
+        <div class="valores__cota" aria-hidden="true"><span class="valores__linea"></span></div>
         <div class="valores__colgante">
           <span class="valores__cordel" aria-hidden="true"></span>
           <div class="valores__vaiven">
@@ -1269,7 +1243,7 @@
       </li>
       <li class="valores__tramo" style="--i:1">
         <h3 class="valores__valor">Cercanía</h3>
-        <div class="valores__cota" aria-hidden="true"><span class="valores__ref valores__ref--ini"></span><span class="valores__ref valores__ref--fin"></span><span class="valores__linea"></span><span class="valores__punta valores__punta--ini"></span><span class="valores__punta valores__punta--fin"></span></div>
+        <div class="valores__cota" aria-hidden="true"><span class="valores__linea"></span></div>
         <div class="valores__colgante">
           <span class="valores__cordel" aria-hidden="true"></span>
           <div class="valores__vaiven">
@@ -1288,7 +1262,7 @@
       </li>
       <li class="valores__tramo" style="--i:2">
         <h3 class="valores__valor">Profesionalidad</h3>
-        <div class="valores__cota" aria-hidden="true"><span class="valores__ref valores__ref--ini"></span><span class="valores__ref valores__ref--fin"></span><span class="valores__linea"></span><span class="valores__punta valores__punta--ini"></span><span class="valores__punta valores__punta--fin"></span></div>
+        <div class="valores__cota" aria-hidden="true"><span class="valores__linea"></span></div>
         <div class="valores__colgante">
           <span class="valores__cordel" aria-hidden="true"></span>
           <div class="valores__vaiven">
@@ -1348,7 +1322,6 @@
   <div class="ancho">
     <div class="presentacion__texto" data-revelar>
       <p class="presentacion__parrafo">Somos una tienda de sofás y camas a medida en Las Rozas de Madrid. Te ofrecemos un asesoramiento personalizado, buscando en todo momento <span class="presentacion__subrayado">el modelo que más se adecue a tu espacio</span>… Dando forma a tus ideas, sin olvidar comodidad y diseño.</p>
-      <span class="presentacion__trazos" aria-hidden="true"></span>
     </div>
 
     <div class="presentacion__proceso">
@@ -1366,19 +1339,14 @@
           <li class="presentacion__paso"><span class="presentacion__num">4</span><span class="presentacion__nombre">Transporte</span></li>
           <li class="presentacion__paso"><span class="presentacion__num">5</span><span class="presentacion__nombre">Montaje en casa</span></li>
         </ol>
-        <div class="cota cota--abajo presentacion__plazo" data-cota="manual" aria-hidden="true">
-          <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-          <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-          <span class="cota__texto"><span class="cota__frase">plazo a confirmar</span></span>
-        </div>
-        <p class="sr">Plazo total: a confirmar.</p>
+        <p class="presentacion__plazo"><span class="sr">Plazo total: </span>plazo a confirmar</p>
       </div>
     </div>
   </div>
 </section>
 <!-- ▲ presentacion -->
 <!-- ▼ visita -->
-<section id="visita" class="seccion visita" aria-labelledby="visita-titulo">
+<section id="visita" class="seccion sobre-papel visita" aria-labelledby="visita-titulo">
   <div class="ancho">
     <div class="visita__rotulo" data-revelar aria-hidden="true">
       <svg class="visita__letras" viewBox="0 0 1204 222" aria-hidden="true" focusable="false">
@@ -1405,30 +1373,18 @@
       </figure>
 
       <div class="visita__camino" data-revelar>
-        <ul class="visita__cotas">
+        <ul class="visita__rutas">
           <li class="visita__tramo">
-            <div class="cota visita__cota" data-cota="manual" aria-hidden="true">
-              <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-              <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-              <span class="cota__texto"><span class="cota__frase">unos 29 min desde Moncloa</span></span>
-            </div>
-            <p class="visita__linea"><span class="sr">Unos 29 minutos desde Moncloa. </span>En coche: 23 km por la M-50, salida 80.</p>
+            <p class="visita__dato">Unos 29 min desde Moncloa</p>
+            <p class="visita__linea">En coche: 23 km por la M-50, salida 80.</p>
           </li>
           <li class="visita__tramo">
-            <div class="cota visita__cota" data-cota="manual" aria-hidden="true">
-              <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-              <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-              <span class="cota__texto"><span class="cota__frase">autobús 629, en la puerta</span></span>
-            </div>
-            <p class="visita__linea"><span class="sr">Autobús 629, en la puerta. </span>Sale del intercambiador de Moncloa y para en Turín-Oslo en 22–24 min.</p>
+            <p class="visita__dato">Autobús 629, en la puerta</p>
+            <p class="visita__linea">Sale del intercambiador de Moncloa y para en Turín-Oslo en 22–24 min.</p>
           </li>
           <li class="visita__tramo">
-            <div class="cota visita__cota" data-cota="manual" aria-hidden="true">
-              <span class="cota__ref cota__ref--ini"></span><span class="cota__ref cota__ref--fin"></span>
-              <span class="cota__linea"></span><span class="cota__punta cota__punta--ini"></span><span class="cota__punta cota__punta--fin"></span>
-              <span class="cota__texto"><span class="cota__frase">Cercanías a 2,4 km</span></span>
-            </div>
-            <p class="visita__linea"><span class="sr">Cercanías a 2,4 km. </span>Estación de Las Rozas (C-7 y C-10).</p>
+            <p class="visita__dato">Cercanías a 2,4 km</p>
+            <p class="visita__linea">Estación de Las Rozas (C-7 y C-10).</p>
           </li>
         </ul>
         <div class="grupo visita__acciones">
@@ -1474,7 +1430,7 @@
       <div class="cajetin__celda cajetin__celda--marca">
         <div class="cajetin__caja">
           <img class="cajetin__logo" src="assets/img/logo-relax-store-blanco.png" width="876" height="160" alt="Relax Store Las Rozas" loading="lazy" decoding="async">
-          <p class="cajetin__mano">Camas y sofás a medida</p>
+          <p class="cajetin__lema">Camas y sofás a medida</p>
         </div>
       </div>
       <div class="cajetin__celda cajetin__celda--dir">

@@ -1,32 +1,19 @@
 /* =====================================================================================
    PRESENTACIÓN + PROCESO
-   Su párrafo a gran tamaño, con una cota que subraya «el modelo que más se adecue a tu
-   espacio» (se parte con la línea si el texto la parte). Debajo, el proceso real de 5
-   pasos como un metro que sale de su caja a medida que bajas (transform ligado al scroll).
+   Su párrafo a gran tamaño; «el modelo que más se adecue a tu espacio» se distingue solo por
+   el color (pase de elegancia, 8-oct-2026: sin subrayado-cota). Debajo, el proceso real de 5
+   pasos como un metro que sale de su caja a medida que bajas (transform ligado al scroll),
+   y el plazo como línea de texto.
    ===================================================================================== */
-.presentacion { --caja: clamp(52px, 1.6vw + 40px, 76px); --cinta: clamp(30px, .8vw + 22px, 44px); }
+.presentacion { --caja: clamp(52px, 1.6vw + 40px, 76px); --cinta: clamp(28px, .8vw + 20px, 40px); }
 
-/* ---------- el párrafo y su cota ---------- */
+/* ---------- el párrafo ---------- */
 .presentacion__texto { position: relative; }
 .presentacion__parrafo {
-  font-size: clamp(1.4375rem, .85rem + 2.05vw, 3rem); font-weight: 600; line-height: 1.38; letter-spacing: 0;
-  max-width: 27em; text-wrap: pretty; color: var(--tinta);
+  font-size: clamp(1.375rem, .82rem + 1.9vw, 2.75rem); font-weight: 400; line-height: 1.42; letter-spacing: 0;
+  max-width: 28em; text-wrap: pretty; color: var(--tinta);
 }
-.presentacion__subrayado { color: var(--azul-hondo); display: inline-block; padding-bottom: .38em; } /* un solo bloque: la cota no se parte en un trozo diminuto al final de línea */
-.presentacion__trazos { position: absolute; inset: 0; pointer-events: none; }
-.presentacion__trazo { position: absolute; height: 20px; color: var(--azul); }
-.presentacion__trazo i { position: absolute; display: block; background: currentColor; }
-.presentacion__trazo .t-linea { left: 0; right: 0; top: 8px; height: 2.5px; transform-origin: 0 50%; }
-.presentacion__trazo .t-punta { top: 2px; width: 13px; height: 14px; }
-.presentacion__trazo .t-punta--ini { left: 0; clip-path: polygon(0 50%, 100% 0, 100% 100%); transform-origin: 0 50%; }
-.presentacion__trazo .t-punta--fin { right: 0; clip-path: polygon(100% 50%, 0 0, 0 100%); transform-origin: 100% 50%; }
-.presentacion__trazo .t-ref { top: -9px; width: 2px; height: 20px; transform-origin: 50% 100%; }
-.presentacion__trazo .t-ref--ini { left: 0; } .presentacion__trazo .t-ref--fin { right: 0; }
-.anima .presentacion__texto:not(.dentro) .t-linea { transform: scaleX(0); }
-.anima .presentacion__texto:not(.dentro) :is(.t-punta, .t-ref) { transform: scale(0); opacity: 0; }
-.anima .presentacion__texto.dentro .t-linea { transition: transform .62s var(--sale) calc(.35s + var(--k, 0) * .5s); }
-.anima .presentacion__texto.dentro .t-punta--ini, .anima .presentacion__texto.dentro .t-ref--ini { transition: transform .8s var(--muelle) .3s, opacity .15s linear .3s; }
-.anima .presentacion__texto.dentro .t-punta--fin, .anima .presentacion__texto.dentro .t-ref--fin { transition: transform .8s var(--muelle) calc(.8s + var(--k, 0) * .5s), opacity .15s linear calc(.8s + var(--k, 0) * .5s); }
+.presentacion__subrayado { color: var(--azul); }
 
 /* ---------- el proceso: el metro que se saca con el scroll ---------- */
 .presentacion__proceso { margin-top: clamp(72px, 7vw + 24px, 176px); }
@@ -36,63 +23,69 @@
   margin-top: clamp(36px, 3vw + 16px, 72px);
 }
 .presentacion__caja {
-  position: relative; z-index: 3; grid-column: 1; grid-row: 1; width: var(--caja); aspect-ratio: 1; border-radius: 14px 14px 14px 5px;
-  background: var(--tinta); box-shadow: var(--sombra-elevado);
+  position: relative; z-index: 3; grid-column: 1; grid-row: 1; width: var(--caja); aspect-ratio: 1; border-radius: 12px 12px 12px 4px;
+  background: var(--negro);
 }
-.presentacion__caja::before { content: ""; position: absolute; left: 30%; top: 28%; width: 40%; aspect-ratio: 1.155; background: var(--azul-noche); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.presentacion__caja::after { content: ""; position: absolute; inset: 14%; border-radius: 50%; border: 2px solid rgba(142, 194, 236, .35); }
+.presentacion__caja::before { content: ""; position: absolute; left: 31%; top: 29%; width: 38%; aspect-ratio: 1.155; background: var(--azul-noche); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.presentacion__caja::after { content: ""; position: absolute; inset: 15%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .22); }
 .presentacion__via { position: relative; grid-column: 2; grid-row: 1; height: var(--caja); margin-left: -10px; overflow: hidden; }
-.presentacion__via::before { /* la medida que falta: guía discontinua */
-  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px;
-  background: repeating-linear-gradient(90deg, var(--trazo) 0 6px, transparent 6px 12px);
+.presentacion__via::before { /* la medida que falta: guía discontinua y fina */
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; margin-top: -.5px;
+  background: repeating-linear-gradient(90deg, var(--trazo) 0 5px, transparent 5px 10px);
 }
 .presentacion__cinta {
   position: absolute; left: 0; top: 50%; width: 100%; height: var(--cinta); margin-top: calc(var(--cinta) / -2); border-radius: 2px; will-change: transform;
   background:
-    repeating-linear-gradient(270deg, #fff 0 2px, transparent 2px 60px) right top / 100% 46% no-repeat,
-    repeating-linear-gradient(270deg, rgba(255, 255, 255, .62) 0 1.4px, transparent 1.4px 12px) right top / 100% 24% no-repeat,
+    repeating-linear-gradient(270deg, #fff 0 1.5px, transparent 1.5px 60px) right top / 100% 42% no-repeat,
+    repeating-linear-gradient(270deg, rgba(255, 255, 255, .55) 0 1px, transparent 1px 12px) right top / 100% 22% no-repeat,
     var(--azul);
 }
 .presentacion__una {
-  position: absolute; z-index: 2; left: -8px; top: 50%; width: 12px; height: calc(var(--cinta) + 14px); margin-top: calc((var(--cinta) + 14px) / -2);
-  border-radius: 3px; border: 2px solid var(--tinta); background: linear-gradient(90deg, var(--metal), #fff 45%, var(--metal)); will-change: transform;
+  position: absolute; z-index: 2; left: -8px; top: 50%; width: 11px; height: calc(var(--cinta) + 14px); margin-top: calc((var(--cinta) + 14px) / -2);
+  border-radius: 3px; border: 1.5px solid var(--tinta); background: linear-gradient(90deg, var(--metal), #fff 45%, var(--metal)); will-change: transform;
 }
 .presentacion__pasos { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 clamp(8px, 1vw, 20px); margin: 0 0 0 -10px; padding: 0; list-style: none; }
-.presentacion__paso { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; padding-top: clamp(26px, 1.6vw + 14px, 44px); text-align: center; min-width: 0; }
+.presentacion__paso { position: relative; display: grid; justify-items: center; align-content: start; gap: 6px; padding-top: clamp(26px, 1.6vw + 14px, 44px); text-align: center; min-width: 0; }
 .presentacion__paso::before { /* la referencia: del metro a su paso */
-  content: ""; position: absolute; left: 50%; top: 0; width: 2px; height: clamp(18px, 1.2vw + 8px, 32px); margin-left: -1px; background: var(--tinta); transform-origin: 50% 0;
+  content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: clamp(18px, 1.2vw + 8px, 32px); margin-left: -.5px; background: var(--tinta); transform-origin: 50% 0;
 }
-.presentacion__num { font-family: var(--f-titulo); font-synthesis: none; font-size: clamp(2.25rem, 1rem + 3.2vw, 4.75rem); font-weight: 400; line-height: 1; color: var(--azul); font-variant-numeric: tabular-nums; }
-.presentacion__nombre { font-size: clamp(.9375rem, .8rem + .55vw, 1.375rem); font-weight: 700; line-height: 1.25; color: var(--tinta); text-wrap: balance; }
-.presentacion__plazo { grid-column: 2; grid-row: 3; margin: clamp(28px, 2vw + 12px, 48px) 0 0 -10px; --cota-letra: clamp(1.375rem, .8rem + 1.4vw, 2.375rem); }
+.presentacion__num { font-family: var(--f-titulo); font-synthesis: none; font-size: clamp(2rem, 1rem + 2.6vw, 4.125rem); font-weight: 400; line-height: 1; color: var(--tinta); font-variant-numeric: tabular-nums; }
+.presentacion__nombre { font-size: clamp(.9375rem, .82rem + .45vw, 1.25rem); font-weight: 500; line-height: 1.3; color: var(--tinta); text-wrap: balance; }
+.presentacion__plazo {
+  grid-column: 2; grid-row: 3; display: flex; align-items: center; gap: 14px; margin: clamp(32px, 2vw + 16px, 56px) 0 0 -10px;
+  font-size: var(--t-texto); font-weight: 500; color: var(--lapiz);
+}
+.presentacion__plazo::before { content: ""; flex: 1 1 auto; max-width: 120px; height: 1px; background: var(--linea); }
 
 /* el paso se enciende cuando la cinta llega a él (solo con movimiento) */
 .anima .presentacion__paso::before { transform: scaleY(0); transition: transform .3s var(--entra); }
-.anima .presentacion__num { opacity: .16; transform: translateY(12px) scale(.82); transition: opacity .25s linear, transform .5s var(--entra); }
+.anima .presentacion__num { opacity: .16; transform: translateY(10px); transition: opacity .25s linear, transform .5s var(--entra); }
 .anima .presentacion__nombre { opacity: .3; transition: opacity .25s linear; }
 .anima .presentacion__paso.en-cinta::before { transform: none; transition: transform .45s var(--sale); }
-.anima .presentacion__paso.en-cinta .presentacion__num { opacity: 1; transform: none; transition: opacity .2s linear, transform .9s var(--muelle); }
+.anima .presentacion__paso.en-cinta .presentacion__num { opacity: 1; transform: none; transition: opacity .3s linear, transform .9s var(--muelle-suave); }
 .anima .presentacion__paso.en-cinta .presentacion__nombre { opacity: 1; transition: opacity .4s linear .08s; }
+.anima .presentacion__plazo { opacity: 0; transition: opacity .4s linear; }
+.anima .presentacion__plazo.visto { opacity: 1; transition: opacity .7s linear .1s; }
 
 /* ---------- móvil: el metro baja en vertical, los pasos a su lado ---------- */
 @media (max-width: 699px) {
   .presentacion__metro { grid-template-columns: var(--caja) minmax(0, 1fr); column-gap: 0; align-items: stretch; }
   .presentacion__caja { grid-row: 1; align-self: start; }
   .presentacion__via { grid-column: 1; grid-row: 2; height: auto; width: var(--caja); margin: -10px 0 0; }
-  .presentacion__via::before { left: 50%; right: auto; top: 0; bottom: 0; width: 2px; height: auto; margin: 0 0 0 -1px; background: repeating-linear-gradient(180deg, var(--trazo) 0 6px, transparent 6px 12px); }
+  .presentacion__via::before { left: 50%; right: auto; top: 0; bottom: 0; width: 1px; height: auto; margin: 0 0 0 -.5px; background: repeating-linear-gradient(180deg, var(--trazo) 0 5px, transparent 5px 10px); }
   .presentacion__cinta {
     left: 50%; top: 0; width: var(--cinta); height: 100%; margin: 0 0 0 calc(var(--cinta) / -2);
     background:
-      repeating-linear-gradient(0deg, #fff 0 2px, transparent 2px 60px) left bottom / 46% 100% no-repeat,
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, .62) 0 1.4px, transparent 1.4px 12px) left bottom / 24% 100% no-repeat,
+      repeating-linear-gradient(0deg, #fff 0 1.5px, transparent 1.5px 60px) left bottom / 42% 100% no-repeat,
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, .55) 0 1px, transparent 1px 12px) left bottom / 22% 100% no-repeat,
       var(--azul);
   }
-  .presentacion__una { left: 50%; top: -8px; width: calc(var(--cinta) + 14px); height: 12px; margin: 0 0 0 calc((var(--cinta) + 14px) / -2); background: linear-gradient(180deg, var(--metal), #fff 45%, var(--metal)); }
+  .presentacion__una { left: 50%; top: -8px; width: calc(var(--cinta) + 14px); height: 11px; margin: 0 0 0 calc((var(--cinta) + 14px) / -2); background: linear-gradient(180deg, var(--metal), #fff 45%, var(--metal)); }
   .presentacion__pasos { grid-column: 2; grid-row: 2; grid-template-columns: 1fr; margin: 0; padding-top: 8px; }
   .presentacion__paso { grid-template-columns: auto 1fr; align-items: center; justify-items: start; column-gap: 14px; min-height: 92px; padding: 0 0 0 30px; text-align: left; align-content: center; }
-  .presentacion__paso::before { left: 0; top: 50%; width: 22px; height: 2px; margin: -1px 0 0; transform-origin: 0 50%; }
+  .presentacion__paso::before { left: 0; top: 50%; width: 22px; height: 1px; margin: -.5px 0 0; transform-origin: 0 50%; }
   .anima .presentacion__paso::before { transform: scaleX(0); }
-  .presentacion__num { font-size: 2.75rem; min-width: 1.1ch; }
+  .presentacion__num { font-size: 2.5rem; min-width: 1.1ch; }
   .presentacion__nombre { font-size: 1.125rem; }
   .presentacion__plazo { grid-column: 1 / -1; grid-row: 3; margin-left: 0; }
 }

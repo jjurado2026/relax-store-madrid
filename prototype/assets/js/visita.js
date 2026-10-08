@@ -1,6 +1,7 @@
 /* VISITA — el día de hoy marcado (hora de Madrid, RS.estado), la marca de «ahora» en su franja,
-   las cotas del camino que se abren una tras otra, la luz de las letras corpóreas que sigue al cursor
-   (canto y sombra), el tercio de vuelta de la A al entrar el cursor y el zoom de la fachada hacia el cursor. */
+   la luz de las letras corpóreas que sigue al cursor (canto y sombra) y el tercio de vuelta de la A
+   al entrar el cursor. (Pase de elegancia, 8-oct-2026: las rutas ya no son cotas y la fachada no
+   sigue al cursor: su reacción es quieta, en CSS.) */
 (() => {
   'use strict';
   const sec = document.getElementById('visita');
@@ -25,11 +26,6 @@
   marcarHoy();
   document.addEventListener('rs:estado', ev => marcarHoy(ev.detail));
 
-  /* ---------- las cotas del camino, una tras otra ---------- */
-  const camino = sec.querySelector('.visita__camino');
-  const cotas = [...sec.querySelectorAll('.visita__cota')];
-  if (camino && !QUIETO) RS.revelar(camino, () => cotas.forEach((c, i) => setTimeout(() => RS.cota.medir(c), 200 + i * 420)));
-
   if (QUIETO || !FINO) return;
 
   /* ---------- la luz sobre las letras corpóreas y el tercio de vuelta de la A ---------- */
@@ -52,11 +48,4 @@
     rotulo.addEventListener('pointerenter', () => { if (listo && tri) { n++; tri.style.setProperty('--n', n); } });
   }
 
-  /* ---------- la fachada se acerca hacia donde apunta el cursor ---------- */
-  const marco = sec.querySelector('.visita__marco');
-  if (marco) marco.addEventListener('pointermove', e => {
-    const r = marco.getBoundingClientRect();
-    marco.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-    marco.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-  });
 })();

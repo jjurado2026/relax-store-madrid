@@ -1,28 +1,26 @@
 /* =====================================================================================
-   VISITA — «Ven a probarlo»
-   Se abre con SUS letras corpóreas «Rel▲x Store · Las Rozas» sobre los paneles blancos de
-   la fachada (con canto y sombra que se mueven con el cursor; la A es el triángulo azul).
-   Después, la fachada de día entera, las cotas del camino con datos reales, el horario con
-   el día de hoy marcado y el estado en vivo, y su mapa entero.
+   VISITA — «Ven a probarlo» (banda de papel)
+   Se abre con SUS letras corpóreas «Rel▲x Store · Las Rozas» sobre un panel blanco con dos
+   juntas muy tenues (canto y sombra que se mueven con el cursor; la A es el triángulo azul).
+   Después, la fachada de día entera, las tres rutas en una lista con líneas finas (pase de
+   elegancia, 8-oct-2026: sin cotas), el horario con el día de hoy y el estado en vivo, y su mapa.
    ===================================================================================== */
-.visita { --canto: #2A5274; }
+.visita { --canto: #3A3A3D; }
 
 /* ---------- las letras corpóreas, sobre los paneles de la fachada ---------- */
 .visita__rotulo {
   position: relative; padding: clamp(16px, 2.6vw, 56px) clamp(10px, 2.4vw, 52px) clamp(12px, 1.8vw, 40px);
   background-color: var(--blanco);
-  background-image:
-    linear-gradient(90deg, rgba(169, 187, 202, .55) 0 1.5px, transparent 1.5px),
-    linear-gradient(rgba(169, 187, 202, .55) 0 1.5px, transparent 1.5px);
-  background-size: calc(100% / 5) 100%, 100% 50%;
-  box-shadow: var(--sombra-elevado), inset 0 0 0 1.5px rgba(169, 187, 202, .7);
+  /* dos juntas verticales de los paneles, apenas visibles detrás de las letras */
+  background-image: linear-gradient(90deg, transparent calc(100% / 3), rgba(18, 18, 18, .05) calc(100% / 3) calc(100% / 3 + 1px), transparent calc(100% / 3 + 1px) calc(200% / 3), rgba(18, 18, 18, .05) calc(200% / 3) calc(200% / 3 + 1px), transparent calc(200% / 3 + 1px));
+  box-shadow: 0 0 0 1px rgba(18, 18, 18, .06);
 }
 .visita__letras { width: 100%; height: auto; overflow: visible; }
 .visita__letra, .visita__lugar { fill: var(--tinta); }
 .visita__letra { transform-box: fill-box; transform-origin: 50% 100%; }
 .visita__canto { fill: var(--canto); }
 .visita__canto-mov { transform: translate(calc(3.5px - var(--lx, 0) * 3px), calc(4.5px - var(--ly, 0) * 2.5px)); }
-.visita__sombra { fill: var(--tinta); opacity: .15; filter: blur(5px); }
+.visita__sombra { fill: var(--tinta); opacity: .12; filter: blur(6px); }
 .visita__sombra-mov { transform: translate(calc(10px - var(--lx, 0) * 20px), calc(15px - var(--ly, 0) * 11px)); }
 .visita__a { transform-box: fill-box; transform-origin: 50% 66.667%; }
 .visita__tri { fill: var(--azul); transform-box: fill-box; transform-origin: 50% 66.667%; transform: rotate(calc(var(--n, 0) * 120deg)); transition: transform 1.1s var(--muelle); }
@@ -30,13 +28,13 @@
 /* entrada: las letras se levantan una a una (muelle) y el triángulo cae en su sitio */
 .anima .visita__rotulo:not(.dentro) .visita__letra { opacity: 0; transform: scaleY(0); }
 .anima .visita__rotulo:not(.dentro) :is(.visita__canto, .visita__sombra) { opacity: 0; }
-.anima .visita__rotulo:not(.dentro) .visita__a { opacity: 0; transform: translateY(-250%) rotate(-150deg); }
+.anima .visita__rotulo:not(.dentro) .visita__a { opacity: 0; transform: translateY(-60%) rotate(-120deg); }
 .anima .visita__rotulo:not(.dentro) .visita__lugar { opacity: 0; transform: translateY(14px); }
-.anima .visita__rotulo.dentro .visita__letra { transition: transform .95s var(--muelle) calc(.1s + var(--i) * 85ms), opacity .1s linear calc(.1s + var(--i) * 85ms); }
+.anima .visita__rotulo.dentro .visita__letra { transition: transform .95s var(--muelle-suave) calc(.1s + var(--i) * 85ms), opacity .1s linear calc(.1s + var(--i) * 85ms); }
 .anima .visita__rotulo.dentro .visita__canto { transition: opacity .5s linear .9s; }
 .anima .visita__rotulo.dentro .visita__sombra { transition: opacity .9s linear 1.1s; }
-.anima .visita__rotulo.dentro .visita__a { transition: transform 1.3s var(--caida) .95s, opacity .12s linear .95s; }
-.anima .visita__rotulo.dentro .visita__lugar { transition: opacity .5s linear 1.75s, transform .9s var(--muelle) 1.75s; }
+.anima .visita__rotulo.dentro .visita__a { transition: transform 1.3s var(--sale) .95s, opacity .3s linear .95s; }
+.anima .visita__rotulo.dentro .visita__lugar { transition: opacity .5s linear 1.75s, transform .9s var(--sale) 1.75s; }
 
 /* ---------- titular ---------- */
 .visita__cabeza { margin-top: clamp(32px, 3vw + 12px, 80px); }
@@ -45,44 +43,49 @@
 /* ---------- rejilla: fachada · camino / horario · mapa ---------- */
 .visita__rejilla { display: grid; gap: clamp(36px, 3vw + 16px, 72px) clamp(24px, 3.6vw, 80px); margin-top: clamp(32px, 3vw + 12px, 72px); }
 .visita__fachada { margin: 0; }
-.visita__marco img { transition: transform var(--d-larga) var(--sale); }
-.visita__marco:hover img { transform: scale(1.05); }
+/* la fachada: con el cursor, sube 4 px y aparece su sombra (reacción quieta, no sigue al ratón) */
+.visita__marco:hover img { transform: translateY(-4px); }
+.visita__marco:hover::after { opacity: 1; }
 
-.visita__cotas { display: grid; gap: clamp(22px, 1.6vw + 12px, 40px); margin: 0; padding: 0; list-style: none; }
-.visita__cota { --cota-letra: clamp(1.25rem, .7rem + 1.3vw, 2.125rem); }
-.visita__linea { margin-top: 16px; font-size: var(--t-texto); line-height: 1.55; max-width: 46ch; }
+/* las tres rutas: una lista con líneas finas */
+.visita__rutas { display: grid; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--linea); }
+.visita__tramo { display: grid; gap: 4px; padding: clamp(16px, 1vw + 10px, 26px) 0; border-top: 1px solid var(--linea); }
+.visita__dato { font-family: var(--f-titulo); font-size: var(--t-h3); line-height: 1.15; color: var(--tinta); }
+.visita__linea { font-size: var(--t-texto); line-height: 1.6; color: var(--lapiz); max-width: 46ch; }
 .visita__acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(28px, 2vw + 12px, 48px); }
+.anima .visita__camino:not(.dentro) .visita__tramo { opacity: 0; transform: translateY(12px); }
+.anima .visita__camino.dentro .visita__tramo { transition: opacity .6s linear calc(.1s + var(--t, 0) * .15s), transform 1s var(--sale) calc(.1s + var(--t, 0) * .15s); }
+.visita__tramo:nth-child(2) { --t: 1; } .visita__tramo:nth-child(3) { --t: 2; }
 
 /* el horario: hoy marcado, el estado en vivo y las franjas dibujadas de 10:00 a 21:00 */
 .visita__estado { font-size: var(--t-texto); margin-bottom: var(--e3); }
-.visita__estado .estado { font-weight: 700; }
+.visita__estado .estado { font-weight: 600; }
 .visita__tabla { width: 100%; border-collapse: collapse; font-size: var(--t-peq); }
-.visita__tabla th, .visita__tabla td { padding: 11px 10px; border-bottom: 1.5px dashed var(--trazo); text-align: left; vertical-align: middle; line-height: 1.35; }
-.visita__tabla th { font-weight: 700; white-space: nowrap; padding-left: 12px; }
+.visita__tabla th, .visita__tabla td { padding: 12px 10px; border-bottom: 1px solid var(--linea); text-align: left; vertical-align: middle; line-height: 1.35; }
+.visita__tabla th { font-weight: 600; white-space: nowrap; padding-left: 12px; }
 .visita__tabla td { font-variant-numeric: tabular-nums; }
-.visita__tabla tr:first-child :is(th, td) { border-top: 2px solid var(--tinta); }
-.visita__tabla tr:last-child :is(th, td) { border-bottom: 2px solid var(--tinta); }
-.visita__hoy { display: none; margin-left: 6px; padding: 1px 7px; border-radius: 6px; background: var(--azul); color: #fff; font-size: var(--t-firma); font-weight: 600; vertical-align: 2px; }
-.visita__tabla tr.es-hoy :is(th, td) { background: var(--azul-plano); }
+.visita__tabla tr:first-child :is(th, td) { border-top: 1px solid var(--tinta); }
+.visita__tabla tr:last-child :is(th, td) { border-bottom: 1px solid var(--tinta); }
+.visita__hoy { display: none; margin-left: 6px; padding: 2px 7px; border-radius: 4px; background: var(--negro); color: #fff; font-size: var(--t-firma); font-weight: 500; vertical-align: 2px; }
+.visita__tabla tr.es-hoy :is(th, td) { background: var(--blanco); }
 .visita__tabla tr.es-hoy .visita__hoy { display: inline-block; }
 .visita__barras { position: relative; width: 30%; min-width: 90px; }
 .visita__franja { white-space: nowrap; }
-.visita__barras i { position: absolute; top: 50%; left: calc(var(--a) * 100%); width: calc(var(--b) * 100%); height: 10px; margin-top: -5px; border-radius: 2px; background: var(--trazo); }
+.visita__barras i { position: absolute; top: 50%; left: calc(var(--a) * 100%); width: calc(var(--b) * 100%); height: 6px; margin-top: -3px; border-radius: 1px; background: var(--trazo); }
 .visita__tabla tr.es-hoy .visita__barras i { background: var(--azul); }
-.visita__barras::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: repeating-linear-gradient(90deg, var(--trazo) 0 4px, transparent 4px 8px); }
+.visita__barras::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(18, 18, 18, .1); }
 .visita__ahora { position: absolute; top: 50%; left: calc(var(--x) * 100%); width: 14px; height: 26px; margin: -13px 0 0 -7px; }
-.visita__ahora::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--tinta); }
-.visita__ahora::after { content: ""; position: absolute; left: 0; top: -8px; width: 14px; height: 10px; background: var(--tinta); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.visita__ahora::before { content: ""; position: absolute; left: 6.5px; top: 2px; bottom: 2px; width: 1px; background: var(--tinta); }
+.visita__ahora::after { content: ""; position: absolute; left: 3.5px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--tinta); }
 .anima .visita__ahora { animation: visita-latido 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes visita-latido { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-/* el mapa entero, enlazado; con el cursor se acerca al pin */
-.visita__mapa { display: block; align-self: start; border-radius: 2px; text-decoration: none; transition: transform .5s var(--muelle); }
+/* el mapa entero, enlazado; con el cursor sube 4 px y aparece su sombra (sin zoom) */
+.visita__mapa { display: block; align-self: start; border-radius: 2px; text-decoration: none; }
 .visita__mapa-marco { display: block; }
-.visita__mapa img { transform-origin: 47.9% 48.4%; }
-.visita__mapa:is(:hover, :focus-visible) img { transform: scale(1.045); }
-.visita__mapa:hover { transform: translateY(-3px); }
-.visita__mapa:active { transform: scale(.985); transition-duration: .12s; }
+.visita__mapa:is(:hover, :focus-visible) img { transform: translateY(-4px); }
+.visita__mapa:is(:hover, :focus-visible) .visita__mapa-marco::after { opacity: 1; }
+.visita__mapa:active img { transform: translateY(-1px); transition-duration: .12s; }
 .visita__mapa:focus-visible { outline-offset: 5px; }
 
 @media (min-width: 1000px) {

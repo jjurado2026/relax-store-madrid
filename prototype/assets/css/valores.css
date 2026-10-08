@@ -1,32 +1,25 @@
 /* =====================================================================================
-   VALORES — «Acotación en cadena»
-   Una cota en tres tramos (Amabilidad · Cercanía · Profesionalidad) que se dibuja tramo a
-   tramo; de cada tramo cuelga su insignia real, que se mece mientras se ve. Al pasar el
-   cursor se para, crece 1,06 y aparece el play: el triángulo del logotipo, girado.
+   VALORES — una línea fina en tres tramos (Amabilidad · Cercanía · Profesionalidad) que se
+   dibuja tramo a tramo; de cada tramo cuelga su insignia real, que se mece despacio mientras
+   se ve. Pase de elegancia (8-oct-2026): sin flechas ni referencias, solo la línea. Al pasar el
+   cursor se para, crece un poco y aparece el play: el triángulo del logotipo, girado.
    ===================================================================================== */
-.valores { --cadena: var(--azul-noche); --disco: clamp(170px, 17vw + 40px, 380px); overflow: clip; }
+.valores { --cadena: rgba(255, 255, 255, .3); --disco: clamp(160px, 15vw + 40px, 340px); overflow: clip; }
 .valores__titulo { max-width: 16ch; }
 .valores__cadena { list-style: none; margin: clamp(40px, 4vw + 16px, 96px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .valores__tramo { position: relative; display: grid; justify-items: center; align-content: start; min-width: 0; }
 .valores__valor {
-  font-size: clamp(1.75rem, .4rem + 2.6vw, 3.25rem); font-weight: 800; line-height: 1.05; color: #fff;
-  padding: 0 12px 14px; text-align: center; overflow-wrap: anywhere;
+  font-size: clamp(1.5rem, .5rem + 2vw, 2.625rem); font-weight: 400; line-height: 1.1; color: #fff;
+  padding: 0 12px 20px; text-align: center; overflow-wrap: anywhere;
 }
 
-/* el tramo de cota: línea, puntas (el triángulo del logotipo) y líneas de referencia */
+/* el tramo: una línea fina (los tres tramos forman una sola línea) */
 .valores__cota { position: relative; justify-self: stretch; height: 26px; color: var(--cadena); }
-.valores__linea, .valores__punta, .valores__ref { position: absolute; pointer-events: none; background: currentColor; }
-.valores__linea { left: 0; right: 0; top: 12px; height: 2px; transform-origin: 50% 50%; }
-.valores__punta { top: 6px; width: 50%; height: 14px; }
-.valores__punta--ini { left: 0; clip-path: polygon(0 50%, 13px 0, 13px 100%); }
-.valores__punta--fin { right: 0; clip-path: polygon(100% 50%, calc(100% - 13px) 0, calc(100% - 13px) 100%); }
-.valores__ref { top: -14px; width: 2px; height: 44px; transform-origin: 50% 0; }
-.valores__ref--ini { left: 0; } .valores__ref--fin { right: 0; }
-.valores__tramo + .valores__tramo .valores__ref--ini { display: none; }   /* el eslabón compartido */
+.valores__linea { position: absolute; pointer-events: none; background: currentColor; left: 0; right: 0; top: 12px; height: 1px; transform-origin: 0 50%; }
 
 /* la insignia colgada de su tramo */
 .valores__colgante { position: relative; display: grid; justify-items: center; margin-top: -13px; transform-origin: 50% 0; }
-.valores__cordel { display: block; width: 2px; height: clamp(28px, 2vw + 12px, 48px); background: var(--cadena); transform-origin: 50% 0; }
+.valores__cordel { display: block; width: 1px; height: clamp(28px, 2vw + 12px, 48px); background: var(--cadena); transform-origin: 50% 0; }
 .valores__vaiven { transform-origin: 50% 0; }
 .valores__insignia {
   display: grid; justify-items: center; gap: var(--e4); padding: 0; border: 0; background: none; color: #fff; cursor: pointer;
@@ -34,23 +27,23 @@
 }
 .valores__insignia:focus-visible { outline-offset: 6px; }
 .valores__disco { position: relative; display: block; width: var(--disco); aspect-ratio: 1; border-radius: 50%; }
-.valores__disco img { width: 100%; height: auto; border-radius: 50%; box-shadow: 0 26px 40px -24px rgba(0, 0, 0, .7); transition: transform .7s var(--muelle); }
+.valores__disco img { width: 100%; height: auto; border-radius: 50%; transition: transform .7s var(--muelle-suave); }
 .valores__play { /* el triángulo del logotipo: en reposo, oculto y de pie; con el cursor, gira un cuarto y es «play» */
   position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1.155; margin: -14.7% 0 0 -17%;
   background: var(--azul); clip-path: polygon(50% 0, 100% 100%, 0 100%);
-  opacity: 0; transform: rotate(0deg) scale(.4); transition: opacity .2s linear, transform .6s var(--muelle);
+  opacity: 0; transform: rotate(0deg) scale(.4); transition: opacity .2s linear, transform .6s var(--muelle-suave);
 }
 .valores__rotulo {
   position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 16px;
-  border: 2px solid rgba(255, 255, 255, .55); border-radius: var(--radio-boton); font-weight: 700; font-size: var(--t-peq); white-space: nowrap;
-  transition: transform .5s var(--muelle);
+  border: 1px solid rgba(255, 255, 255, .34); border-radius: var(--radio-boton); font-weight: 500; font-size: var(--t-peq); white-space: nowrap;
+  transition: transform .5s var(--muelle-suave);
 }
-.valores__rotulo::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
+.valores__rotulo::before { content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
 .valores__rotulo::after { /* triángulo pequeño, girado: el mismo play */
-  content: ""; order: -1; width: 10px; height: 11px; background: var(--azul-noche); clip-path: polygon(0 0, 100% 50%, 0 100%);
+  content: ""; order: -1; width: 8px; height: 9px; background: var(--azul-noche); clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
-/* cursor o foco: la insignia se para (ver el bucle), crece 1,06 y aparece el play */
-.valores__insignia:is(:hover, :focus-visible) img { transform: scale(1.06); }
+/* cursor o foco: la insignia se para (ver el bucle), crece un poco y aparece el play */
+.valores__insignia:is(:hover, :focus-visible) img { transform: scale(1.04); }
 .valores__insignia:is(:hover, :focus-visible) .valores__play { opacity: 1; transform: rotate(90deg) scale(1); }
 .valores__insignia:is(:hover, :focus-visible) .valores__rotulo { border-color: transparent; transform: translateY(-2px); }
 .valores__insignia:is(:hover, :focus-visible) .valores__rotulo::before { opacity: 1; }
@@ -60,71 +53,58 @@
 
 /* ---------- entrada: la cadena se dibuja tramo a tramo; las insignias entran balanceándose ---------- */
 .anima .valores__cadena:not(.dentro) .valores__linea { transform: scaleX(0); }
-.anima .valores__cadena:not(.dentro) .valores__punta--ini { transform: translateX(100%); }
-.anima .valores__cadena:not(.dentro) .valores__punta--fin { transform: translateX(-100%); }
-.anima .valores__cadena:not(.dentro) .valores__ref { transform: scaleY(0); }
-.anima .valores__cadena:not(.dentro) .valores__valor { opacity: 0; transform: translateY(14px); }
+.anima .valores__cadena:not(.dentro) .valores__valor { opacity: 0; transform: translateY(12px); }
 .anima .valores__cadena:not(.dentro) .valores__cordel { transform: scaleY(0); }
-.anima .valores__cadena:not(.dentro) .valores__colgante { opacity: 0; transform: translateY(-14px) rotate(-12deg); }
-.anima .valores__cadena.dentro .valores__ref { transition: transform .35s var(--sale) calc(var(--i) * .25s); }
-.anima .valores__cadena.dentro .valores__linea { transition: transform .4s var(--sale) calc(.08s + var(--i) * .25s); }
-.anima .valores__cadena.dentro .valores__punta { transition: transform var(--d-muelle) var(--muelle) calc(.08s + var(--i) * .25s); }
-.anima .valores__cadena.dentro .valores__valor { transition: opacity .35s linear calc(.3s + var(--i) * .25s), transform .8s var(--muelle) calc(.3s + var(--i) * .25s); }
-.anima .valores__cadena.dentro .valores__cordel { transition: transform .35s var(--sale) calc(.45s + var(--i) * .25s); }
-.anima .valores__cadena.dentro .valores__colgante { transition: opacity .2s linear calc(.6s + var(--i) * .25s), transform 1.3s var(--muelle) calc(.6s + var(--i) * .25s); }
-/* bucle: se mecen ±2° (5 s) mientras se ven (data-bucle las pausa fuera de pantalla); con el cursor, quietas */
-.anima .valores__cadena.dentro .valores__vaiven { animation: valores-vaiven 5s ease-in-out calc(1.9s + var(--i) * .25s) infinite both; }
+.anima .valores__cadena:not(.dentro) .valores__colgante { opacity: 0; transform: translateY(-10px) rotate(-4deg); }
+.anima .valores__cadena.dentro .valores__linea { transition: transform .5s var(--sale) calc(.08s + var(--i) * .25s); }
+.anima .valores__cadena.dentro .valores__valor { transition: opacity .5s linear calc(.3s + var(--i) * .25s), transform 1s var(--sale) calc(.3s + var(--i) * .25s); }
+.anima .valores__cadena.dentro .valores__cordel { transition: transform .4s var(--sale) calc(.45s + var(--i) * .25s); }
+.anima .valores__cadena.dentro .valores__colgante { transition: opacity .3s linear calc(.6s + var(--i) * .25s), transform 1.3s var(--muelle-suave) calc(.6s + var(--i) * .25s); }
+/* bucle: se mecen ±1° (6 s) mientras se ven (data-bucle las pausa fuera de pantalla); con el cursor, quietas */
+.anima .valores__cadena.dentro .valores__vaiven { animation: valores-vaiven 6s ease-in-out calc(1.9s + var(--i) * .25s) infinite both; }
 .anima .valores__vaiven:has(.valores__insignia:is(:hover, :focus-visible)) { animation-play-state: paused; }
-@keyframes valores-vaiven { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(2deg); } 75% { transform: rotate(-2deg); } }
+@keyframes valores-vaiven { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(1deg); } 75% { transform: rotate(-1deg); } }
 
 /* ---------- la ventana del vídeo ---------- */
 .valores__ventana {
-  --ar: 1.3333; padding: 0; border: 0; border-radius: var(--radio-panel); background: var(--tinta); color: #fff;
-  width: fit-content; max-width: calc(100vw - 24px); max-height: calc(100svh - 24px); overflow: hidden; box-shadow: var(--sombra-flotante);
+  --ar: 1.3333; padding: 0; border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--radio-panel); background: var(--negro-alto); color: #fff;
+  width: fit-content; max-width: calc(100vw - 24px); max-height: calc(100svh - 24px); overflow: hidden;
 }
-.valores__ventana::backdrop { background: rgba(6, 22, 36, .84); }
+.valores__ventana::backdrop { background: rgba(0, 0, 0, .86); }
 .valores__ventana-cabeza { display: flex; align-items: center; justify-content: space-between; gap: var(--e4); padding: 10px 10px 10px clamp(16px, 1.4vw, 24px); }
-.valores__ventana-titulo { font-size: var(--t-texto); font-weight: 700; line-height: 1.25; }
+.valores__ventana-titulo { font-size: var(--t-texto); font-weight: 600; font-family: var(--f-texto); line-height: 1.25; }
 /* cerrar: mismo lenguaje que .boton (contorno blanco, capa azul bajo el cursor), propio de la ventana */
 .valores__cerrar {
   position: relative; isolation: isolate; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 12px;
-  border: 2px solid #fff; border-radius: var(--radio-boton); background: none; color: #fff; cursor: pointer;
-  font: 700 var(--t-boton)/1.15 var(--f-texto); white-space: nowrap; transition: transform .5s var(--muelle);
+  border: 1.5px solid #fff; border-radius: var(--radio-boton); background: none; color: #fff; cursor: pointer;
+  font: 600 var(--t-boton)/1.15 var(--f-texto); white-space: nowrap; transition: transform .5s var(--muelle-suave);
 }
-.valores__cerrar::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
-.valores__cerrar svg { width: 20px; height: 20px; transition: transform .5s var(--muelle); }
-.valores__cerrar:is(:hover, :focus-visible) { border-color: transparent; transform: translateY(-2px); }
+.valores__cerrar::before { content: ""; position: absolute; inset: -1.5px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
+.valores__cerrar svg { width: 18px; height: 18px; transition: transform .5s var(--muelle-suave); }
+.valores__cerrar:is(:hover, :focus-visible) { border-color: var(--azul); }
 .valores__cerrar:is(:hover, :focus-visible)::before { opacity: 1; }
 .valores__cerrar:is(:hover, :focus-visible) svg { transform: rotate(90deg); }
 .valores__cerrar:active { transform: scale(.96); transition-duration: .12s; }
 .valores__pantalla { background: #000; }
 .valores__video {
   display: block; width: min(calc(100vw - 24px), calc((100svh - 110px) * var(--ar)), 1100px); height: auto; aspect-ratio: var(--ar);
-  max-width: none; background: var(--tinta);
+  max-width: none; background: var(--negro);
 }
-.anima .valores__ventana[open] { animation: valores-ventana .55s var(--muelle) both; }
-@keyframes valores-ventana { from { opacity: 0; transform: translateY(26px) scale(.96); } to { opacity: 1; transform: none; } }
+.anima .valores__ventana[open] { animation: valores-ventana .55s var(--sale) both; }
+@keyframes valores-ventana { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
 
 /* ---------- en vertical (móvil y tableta): la cadena baja; las insignias al lado ---------- */
 @media (max-width: 959px) {
   .valores { --disco: clamp(108px, 22vw, 168px); }
   .valores__cadena { grid-template-columns: 1fr; }
   .valores__tramo { grid-template-columns: 34px minmax(0, 1fr); grid-template-areas: "cota valor" "cota colgante"; justify-items: start; column-gap: clamp(12px, 3vw, 28px); padding: clamp(22px, 4vw, 36px) 0; }
-  .valores__valor { grid-area: valor; padding: 0 0 var(--e4); text-align: left; font-size: clamp(1.75rem, 1rem + 3.4vw, 2.75rem); }
+  .valores__valor { grid-area: valor; padding: 0 0 var(--e4); text-align: left; font-size: clamp(1.5rem, 1rem + 2.6vw, 2.375rem); }
   .valores__cota { grid-area: cota; height: auto; align-self: stretch; justify-self: stretch; margin-block: calc(-1 * clamp(22px, 4vw, 36px)); }
-  .valores__linea { left: 16px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
-  .valores__punta { left: 10px; right: auto; width: 14px; height: 50%; }
-  .valores__punta--ini { top: 0; clip-path: polygon(50% 0, 100% 13px, 0 13px); }
-  .valores__punta--fin { top: auto; bottom: 0; clip-path: polygon(50% 100%, 100% calc(100% - 13px), 0 calc(100% - 13px)); }
-  .valores__ref { left: 0; right: auto; top: 0; width: 34px; height: 2px; transform-origin: 0 50%; }
-  .valores__ref--fin { top: auto; bottom: 0; }
+  .valores__linea { left: 16px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; transform-origin: 50% 0; }
   .valores__colgante { grid-area: colgante; justify-items: start; margin-top: 0; }
   .valores__cordel { display: none; }
   .valores__insignia { grid-template-columns: var(--disco) auto; align-items: center; gap: var(--e4); text-align: left; }
   .anima .valores__cadena:not(.dentro) .valores__linea { transform: scaleY(0); }
-  .anima .valores__cadena:not(.dentro) .valores__punta--ini { transform: translateY(100%); }
-  .anima .valores__cadena:not(.dentro) .valores__punta--fin { transform: translateY(-100%); }
-  .anima .valores__cadena:not(.dentro) .valores__ref { transform: scaleX(0); }
   .valores__vaiven { transform-origin: calc(var(--disco) / 2) 0; }
   .valores__colgante { transform-origin: calc(var(--disco) / 2) 0; }
 }
