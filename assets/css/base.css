@@ -8,6 +8,11 @@
 
 /* ---------- Fuentes autoalojadas (OFL, ver assets/fonts/LICENCIAS.txt) ---------- */
 @font-face {
+  font-family: 'Caprasimo'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('../fonts/caprasimo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
   font-family: 'Epilogue'; font-style: normal; font-weight: 400 800; font-display: swap;
   src: url('../fonts/epilogue-latin-var.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -37,6 +42,7 @@
   --linea-noche: rgba(142, 194, 236, .34);   /* líneas finas sobre tinta */
 
   /* Familias */
+  --f-titulo: 'Caprasimo', 'Cooper Black', Georgia, serif;   /* titulares: serif gruesa y blanda, como un cojín (8-oct-2026) */
   --f-texto: 'Epilogue', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-mano: 'Gochi Hand', 'Segoe Print', 'Comic Sans MS', cursive;
 
@@ -109,7 +115,7 @@ a { color: inherit; }
 h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
 ul[class], ol[class] { padding: 0; list-style: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
-h1, h2, h3, h4 { font-weight: 800; letter-spacing: 0; line-height: 1.08; text-wrap: balance; }
+h1, h2, h3, h4 { font-family: var(--f-titulo); font-weight: 400; font-synthesis: none; letter-spacing: 0; line-height: 1.08; text-wrap: balance; }
 p { text-wrap: pretty; }
 [id] { scroll-margin-top: calc(var(--cab-h) + 12px); }
 ::selection { background: var(--azul-plano); color: var(--tinta); }
@@ -128,8 +134,8 @@ p { text-wrap: pretty; }
 .sobre-blanco { background: var(--blanco); }
 
 /* Titulares y texto. Sin antetítulos: el dato va dentro del titular o en una cota. */
-.titular { font-size: var(--t-h2); font-weight: 800; line-height: 1.04; max-width: 18ch; }
-.subtitular { font-size: var(--t-h3); font-weight: 800; line-height: 1.12; }
+.titular { font-family: var(--f-titulo); font-synthesis: none; font-size: var(--t-h2); font-weight: 400; line-height: 1.04; max-width: 18ch; }
+.subtitular { font-family: var(--f-titulo); font-synthesis: none; font-size: var(--t-h3); font-weight: 400; line-height: 1.12; }
 .entrada { font-size: var(--t-entrada); line-height: 1.55; max-width: 46ch; }
 .texto { font-size: var(--t-texto); line-height: 1.7; max-width: 62ch; }
 .secundario { color: var(--lapiz); }
@@ -271,7 +277,7 @@ p { text-wrap: pretty; }
   min-height: 44px; background: var(--blanco); border: 2px solid var(--tinta); border-radius: var(--radio-sello); overflow: hidden; box-shadow: var(--sombra-elevado);
   transition: transform .5s var(--muelle);
 }
-.sello__nota { position: relative; isolation: isolate; display: grid; place-items: center; padding: 0 12px; background: var(--tinta); color: #fff; font-weight: 800; font-size: clamp(1.125rem, 1rem + .5vw, 1.625rem); }
+.sello__nota { position: relative; isolation: isolate; display: grid; place-items: center; padding: 0 12px; background: var(--tinta); color: #fff; font-family: var(--f-titulo); font-weight: 400; font-size: clamp(1.125rem, 1rem + .5vw, 1.625rem); }
 .sello__nota::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
 .sello__cuerpo { display: grid; align-content: center; padding: 6px 12px 5px; line-height: 1.2; }
 .sello__estrellas { color: var(--mostaza); letter-spacing: 2px; font-size: clamp(.875rem, .8rem + .25vw, 1.125rem); font-family: 'Segoe UI Symbol', 'Apple Symbols', system-ui, sans-serif; }

@@ -62,7 +62,7 @@
 .presentacion__paso::before { /* la referencia: del metro a su paso */
   content: ""; position: absolute; left: 50%; top: 0; width: 2px; height: clamp(18px, 1.2vw + 8px, 32px); margin-left: -1px; background: var(--tinta); transform-origin: 50% 0;
 }
-.presentacion__num { font-size: clamp(2.25rem, 1rem + 3.2vw, 4.75rem); font-weight: 800; line-height: 1; color: var(--azul); font-variant-numeric: tabular-nums; }
+.presentacion__num { font-family: var(--f-titulo); font-synthesis: none; font-size: clamp(2.25rem, 1rem + 3.2vw, 4.75rem); font-weight: 400; line-height: 1; color: var(--azul); font-variant-numeric: tabular-nums; }
 .presentacion__nombre { font-size: clamp(.9375rem, .8rem + .55vw, 1.375rem); font-weight: 700; line-height: 1.25; color: var(--tinta); text-wrap: balance; }
 .presentacion__plazo { grid-column: 2; grid-row: 3; margin: clamp(28px, 2vw + 12px, 48px) 0 0 -10px; --cota-letra: clamp(1.375rem, .8rem + 1.4vw, 2.375rem); }
 

@@ -46,13 +46,14 @@
     setTimeout(function () { if (!window.RS) { d.classList.remove('anima'); d.classList.add('quieto'); } }, 4000);
   })(document.documentElement);
 </script>
+<link rel="preload" href="assets/fonts/caprasimo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/epilogue-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/gochi-hand-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/hero-002-1280.webp" imagesrcset="assets/img/hero-002-640.webp 640w, assets/img/hero-002-960.webp 960w, assets/img/hero-002-1280.webp 1280w, assets/img/hero-002-1920.webp 1920w, assets/img/hero-002-2560.webp 2560w" imagesizes="(orientation: landscape) and (min-width: 700px) 50vw, min(calc(100vw - 60px), 58vh)" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/home.css?v=muyib4c5">
+<link rel="stylesheet" href="assets/css/home.css?v=muz8a2t8">
 <script src="assets/js/base.js" defer></script>
-<script src="assets/js/home.js?v=muyib4c5" defer></script>
+<script src="assets/js/home.js?v=muz8a2t8" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -177,7 +178,7 @@
   <div class="ancho">
     <div class="coleccion__cabeza">
       <h2 class="titular" id="coleccion-titulo">Nuestra colección</h2>
-      <a class="boton boton--principal coleccion__medir" href="#croquis"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4M3 5v14M21 5v14"/></svg>Medir mi hueco</a>
+      <span class="coleccion__medir-zona" data-bucle><span class="coleccion__medir-cota" aria-hidden="true"><i class="mc-linea"></i><i class="mc-punta mc-punta--ini"></i><i class="mc-punta mc-punta--fin"></i></span><a class="boton boton--principal coleccion__medir" href="#croquis"><svg class="coleccion__medir-icono" viewBox="0 0 24 24" aria-hidden="true"><g class="mi-izq"><path d="M3 5v14M3 12l4-4M3 12l4 4"/></g><path class="mi-linea" d="M4 12h16"/><g class="mi-der"><path d="M21 5v14M21 12l-4-4M21 12l-4 4"/></g></svg>Medir mi hueco</a></span>
     </div>
 
     <div class="coleccion__plano" data-revelar>
@@ -208,7 +209,7 @@
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-sofas-t">Sofás a medida</h3>
           <p class="coleccion__linea">Ancho de los asientos, altura del respaldo, arcón y reposabrazos, a tu medida.</p>
-          <a class="enlace coleccion__enlace" href="#postales">Ver los modelos de sofá</a>
+          <a class="enlace coleccion__enlace" href="#postales"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver los modelos de sofá</span></a>
         </div>
       </article>
 
@@ -233,7 +234,7 @@
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-colchones-t">Colchones</h3>
           <p class="coleccion__linea">Time Reset, SportReset y Karibian, en anchos de 80 a 200 cm.</p>
-          <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/colchones/">Ver el catálogo de colchones</a>
+          <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/colchones/"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver el catálogo de colchones</span></a>
         </div>
       </article>
 
@@ -258,7 +259,7 @@
         <div class="coleccion__texto">
           <h3 class="subtitular" id="coleccion-camas-t">Camas a medida</h3>
           <p class="coleccion__linea">Camas tapizadas, canapés, cabeceros y bancadas.</p>
-          <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/camas-personalizadas/">Ver el catálogo de camas</a>
+          <a class="enlace coleccion__enlace" href="https://relaxstoremadrid.com/camas-personalizadas/"><svg class="coleccion__cat" viewBox="0 0 24 24" aria-hidden="true"><path class="cat-tapa" d="M12 6.4C9.6 4.9 6.4 4.5 3 5.4v13c3.4-.9 6.6-.5 9 1z"/><path class="cat-fondo" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/><path class="cat-hoja" d="M12 6.4c2.4-1.5 5.6-1.9 9-1v13c-3.4-.9-6.6-.5-9 1z"/></svg><span>Ver el catálogo de camas</span></a>
         </div>
       </article>
     </div>

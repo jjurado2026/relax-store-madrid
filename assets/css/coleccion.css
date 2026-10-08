@@ -83,3 +83,57 @@
   .coleccion__pieza .coleccion__caida, .coleccion__pieza .coleccion__tab { --rv: .2s; }
   .coleccion__pieza .coleccion__texto { --rv-t: .9s; }
 }
+
+
+/* ---------- «Medir mi hueco» (8-oct-2026): cada 3,6 s se abre una cota sobre el botón, el icono mide
+   de borde a borde y un brillo lo recorre. Solo en pantalla (data-bucle) y nunca con .quieto ---------- */
+.coleccion__medir-zona { position: relative; display: inline-flex; flex: none; padding-top: 22px; }
+.coleccion__medir-cota { position: absolute; left: 4px; right: 4px; top: 4px; height: 12px; color: var(--azul); pointer-events: none; }
+.coleccion__medir-cota i { position: absolute; display: block; background: currentColor; }
+.coleccion__medir-cota .mc-linea { left: 0; right: 0; top: 5px; height: 2px; transform: scaleX(0); }
+.coleccion__medir-cota .mc-punta { top: 0; width: 11px; height: 12px; opacity: 0; }
+.coleccion__medir-cota .mc-punta--ini { left: 0; clip-path: polygon(0 50%, 100% 0, 100% 100%); }
+.coleccion__medir-cota .mc-punta--fin { right: 0; clip-path: polygon(100% 50%, 0 0, 0 100%); }
+.quieto .coleccion__medir-cota .mc-linea { transform: none; }
+.quieto .coleccion__medir-cota .mc-punta { opacity: 1; }
+.coleccion__medir { overflow: hidden; isolation: isolate; }
+.coleccion__medir::after {
+  content: ""; position: absolute; z-index: 0; top: -20%; bottom: -20%; left: 0; width: 46%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .6) 45%, rgba(255, 255, 255, .15) 62%, transparent);
+  transform: translateX(-140%) skewX(-18deg); opacity: 0;
+}
+.coleccion__medir > * { position: relative; z-index: 1; }
+.coleccion__medir-icono { width: 24px; height: 24px; overflow: visible; margin: 0 8px 0 6px; }
+.coleccion__medir-icono path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.coleccion__medir-icono :is(.mi-izq, .mi-der, .mi-linea) { transform-box: view-box; }
+.coleccion__medir-icono .mi-linea { transform-origin: 12px 12px; }
+.anima .coleccion__medir-zona .mi-izq { animation: coleccion-mide-izq 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .mi-der { animation: coleccion-mide-der 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .mi-linea { animation: coleccion-mide-linea 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .coleccion__medir::after { animation: coleccion-brillo 3.6s cubic-bezier(.45, 0, .2, 1) infinite; }
+.anima .coleccion__medir-zona .mc-linea { animation: coleccion-cota-linea 3.6s cubic-bezier(.16, 1, .3, 1) infinite; }
+.anima .coleccion__medir-zona .mc-punta--ini { animation: coleccion-cota-ini 3.6s var(--muelle) infinite; }
+.anima .coleccion__medir-zona .mc-punta--fin { animation: coleccion-cota-fin 3.6s var(--muelle) infinite; }
+@keyframes coleccion-mide-izq { 0%, 4%, 62%, 100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 46% { transform: translateX(-7px); } }
+@keyframes coleccion-mide-der { 0%, 4%, 62%, 100% { transform: translateX(0); } 20% { transform: translateX(7px); } 46% { transform: translateX(7px); } }
+@keyframes coleccion-mide-linea { 0%, 4%, 62%, 100% { transform: scaleX(1); } 20% { transform: scaleX(1.85); } 46% { transform: scaleX(1.85); } }
+@keyframes coleccion-cota-linea { 0%, 4% { transform: scaleX(0); } 22% { transform: scaleX(1); } 50% { transform: scaleX(1); opacity: 1; } 62%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes coleccion-cota-ini { 0%, 4% { transform: translateX(var(--mc-mitad, 90px)); opacity: 0; } 8% { opacity: 1; } 24% { transform: translateX(0); } 50% { transform: translateX(0); opacity: 1; } 62%, 100% { transform: translateX(0); opacity: 0; } }
+@keyframes coleccion-cota-fin { 0%, 4% { transform: translateX(calc(var(--mc-mitad, 90px) * -1)); opacity: 0; } 8% { opacity: 1; } 24% { transform: translateX(0); } 50% { transform: translateX(0); opacity: 1; } 62%, 100% { transform: translateX(0); opacity: 0; } }
+@keyframes coleccion-brillo { 0%, 22% { transform: translateX(-140%) skewX(-18deg); opacity: 0; } 24% { opacity: 1; } 46% { transform: translateX(330%) skewX(-18deg); opacity: 1; } 48%, 100% { transform: translateX(330%) skewX(-18deg); opacity: 0; } }
+/* cursor o foco: se para el bucle, la cota queda abierta y el icono se estira con muelle */
+.coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) :is(.mi-izq, .mi-der, .mi-linea, .mc-linea, .mc-punta) { animation: none !important; transition: transform .55s var(--muelle), opacity .2s linear; }
+.coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) .mc-linea { transform: scaleX(1); }
+.coleccion__medir-zona:has(.coleccion__medir:is(:hover, :focus-visible)) .mc-punta { opacity: 1; }
+.coleccion__medir:is(:hover, :focus-visible) .mi-izq { transform: translateX(-7px); }
+.coleccion__medir:is(:hover, :focus-visible) .mi-der { transform: translateX(7px); }
+.coleccion__medir:is(:hover, :focus-visible) .mi-linea { transform: scaleX(1.85); }
+
+/* ---------- Iconos de catálogo junto a «Ver…»: al pasar el cursor, la hoja pasa de página ---------- */
+.coleccion__enlace { display: inline-flex; align-items: center; gap: 8px; }
+.coleccion__cat { width: 22px; height: 22px; flex: none; overflow: visible; }
+.coleccion__cat path { fill: var(--blanco, #fff); stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+.coleccion__cat .cat-fondo { fill: var(--azul-plano); }
+.coleccion__cat .cat-hoja { transform-box: view-box; transform-origin: 12px 12px; transition: transform .6s var(--muelle, cubic-bezier(.34, 1.56, .64, 1)); }
+.coleccion__enlace:is(:hover, :focus-visible) .cat-hoja { transform: scaleX(-1); }
+.coleccion__pieza:hover .coleccion__enlace .cat-hoja { transform: scaleX(-1); }
