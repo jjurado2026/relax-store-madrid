@@ -11,7 +11,7 @@ Prototipo de homepage para **Relax Store Las Rozas** ([relaxstoremadrid.com](htt
 En dibujo técnico, la *cota* es la línea con dos flechas que dice cuánto mide algo. Su fachada ya es un plano (el cuadro del sofá azul, «Camas y sofás a medida» a rotulador, las letras con el triángulo) y la frase que Google destaca de sus reseñas es *«el sofá cama nos lo hicieron a la medida exacta del hueco»*. La home es ese plano acotado: cada pieza encaja en su hueco con su cota, **cuyas puntas son el triángulo de su logotipo**, y el visitante **tira de un metro** para contar su hueco y mandarlo por WhatsApp. Nadie en Európolis, «la calle de los sofás», usa la medida como lenguaje gráfico.
 
 - **Paleta de su fachada de día:** papel `#F6F8FA`, tinta de rótulo `#0C2B44`, el azul de su triángulo `#136CA8` (solo en lo que mide y en el botón principal) y la mostaza de su pared, solo en las estrellas.
-- **Tipografía:** Epilogue para todo y Gochi Hand (la mano de su fachada) solo en las cotas.
+- **Tipografía:** Caprasimo en los titulares (una serif gruesa y blanda, como un cojín), Epilogue para el texto y Gochi Hand (la mano de su fachada) solo en las cotas.
 - Elegida en un panel de seis direcciones con maqueta real (Cota, Postales, Escaparate, La A, De palabra y Sueños tapizados). Injerta de Postales el expositor de sus sofás-postal y de La A sus letras corpóreas.
 
 ## La home, de arriba abajo
@@ -34,7 +34,7 @@ Las mismas de su web, en el mismo sitio y sin recortar ni retocar color. La del 
 Con el kit del taller (Chrome headless por DevTools): **el hero cabe entero en 14 tamaños** (de 320×568 a 2560×1440, incluido el móvil apaisado) · sin desbordamiento horizontal · las fotos a su proporción · dianas táctiles ≥ 44 px · un solo `h1`, todas las imágenes con `alt`, botones con nombre accesible · **cero errores de JavaScript** · con `prefers-reduced-motion` nada se mueve y todo se ve · solo se animan `transform` y `opacity` · fotos y botones reaccionan al cursor. **Peso: ~0,6 MB la primera vista y ~1,2 MB la página entera**, frente a 11 MB.
 
 ## Stack
-HTML, CSS y JavaScript puro. Cero dependencias, cero build. Epilogue + Gochi Hand autoalojadas.
+HTML, CSS y JavaScript puro. Cero dependencias, cero build. Caprasimo + Epilogue + Gochi Hand autoalojadas.
 
 Parámetros útiles: `?ss` (sin animaciones, para capturas) · `?ahora=2026-10-08T18:00` (fija la hora de Madrid para revisar el estado abierto/cerrado) · `?caducada` (simula la caducidad).
 

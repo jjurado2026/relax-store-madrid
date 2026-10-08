@@ -32,3 +32,12 @@
     });
   });
 })();
+
+/* «Medir mi hueco»: las puntas de la cota salen del centro del botón (su ancho cambia con la pantalla) */
+(() => {
+  const zona = document.querySelector('.coleccion__medir-zona');
+  if (!zona) return;
+  const medir = () => zona.style.setProperty('--mc-mitad', Math.max(40, zona.offsetWidth / 2 - 10) + 'px');
+  medir();
+  if ('ResizeObserver' in window) new ResizeObserver(medir).observe(zona);
+})();
