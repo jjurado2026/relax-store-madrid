@@ -233,15 +233,12 @@
   const pintarWA = () => {
     const url = hueco.enlace();
     $$('a[data-wa]').forEach(a => { if (a.dataset.wa !== 'propio') a.href = url; });
+    // el botón del hero dice siempre «Escríbenos por WhatsApp» (8-oct-2026: sin los cm en la etiqueta);
+    // la medida viaja en el mensaje y se ve en la lectura del metro. Para el lector de pantalla, se añade al final.
     const t = $('[data-wa-texto]'), boton = t && t.closest('a');
-    if (t) {
-      if (hueco.medida) {
-        t.innerHTML = `<span class="wa-verbo">Mandar </span>«${hueco.medida} cm»<span class="wa-por"> por WhatsApp</span>`;
-        boton.setAttribute('aria-label', `Mandar mi medida, ${hueco.medida} cm, por WhatsApp`);
-      } else {
-        t.innerHTML = '<span class="wa-largo">Escríbenos por </span>WhatsApp';
-        boton.removeAttribute('aria-label');
-      }
+    if (boton) {
+      if (hueco.medida) boton.setAttribute('aria-label', `Escríbenos por WhatsApp, con tu medida de ${hueco.medida} cm en el mensaje`);
+      else boton.removeAttribute('aria-label');
     }
   };
   RS.pintarWA = pintarWA;
@@ -502,16 +499,11 @@
     let iFrase = 0, mirando = false;
     const remedir = () => { if (mirando) return; iFrase = (iFrase + 1) % FRASES.length; RS.cota.remedir(cotaHero, ...FRASES[iFrase]); };
 
-    // la mira: dos líneas azules siguen al cursor y la cota marca su posición; zoom 1,06 hacia el cursor
+    // con el cursor sobre la foto, reacción quieta (nada sigue al ratón): las paredes del hueco se
+    // encienden y la foto sube 4 px (CSS: .plano.mirando); la cota deja de cambiar de frase mientras tanto
     if (marco && matchMedia('(hover: hover) and (pointer: fine)').matches) {
       marco.addEventListener('pointerenter', () => { mirando = true; plano.classList.add('mirando'); });
       marco.addEventListener('pointerleave', () => { mirando = false; plano.classList.remove('mirando'); });
-      marco.addEventListener('pointermove', e => {
-        const r = marco.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
-        marco.style.setProperty('--mx-px', px + 'px'); marco.style.setProperty('--my-px', py + 'px');
-        marco.style.setProperty('--mx', (px / r.width * 100) + '%'); marco.style.setProperty('--my', (py / r.height * 100) + '%');
-        plano.style.setProperty('--mx-cota', (e.clientX - cotaHero.getBoundingClientRect().left) + 'px');
-      });
     }
 
     // entrada orquestada: texto 50-850 ms, columnas, la foto cae a los 300, la cota mide a los 720, el metro sale a los 1.050
@@ -559,6 +551,23 @@
   const barra = $('[data-barra]');
   if (barra && hero) new IntersectionObserver(es => { const e = es[es.length - 1]; barra.classList.toggle('visible', !e.isIntersecting || e.intersectionRatio < .25); }, { threshold: [0, .25] }).observe(hero);
   else if (barra) barra.classList.add('visible');
+
+  /* -----------------------------------------------------------------------------------
+     9 bis · BOTONES: la capa azul crece desde donde entra el cursor (CSS lee --bx/--by);
+     con teclado, desde el centro. Solo se escribe al entrar: no sigue al ratón.
+     ----------------------------------------------------------------------------------- */
+  const CAPA = '.boton, .postales__accion';
+  document.addEventListener('pointerover', e => {
+    const b = e.target.closest && e.target.closest(CAPA);
+    if (!b || (e.relatedTarget && b.contains(e.relatedTarget))) return;
+    const r = b.getBoundingClientRect();
+    b.style.setProperty('--bx', (e.clientX - r.left).toFixed(1) + 'px');
+    b.style.setProperty('--by', (e.clientY - r.top).toFixed(1) + 'px');
+  });
+  document.addEventListener('keyup', e => {
+    const b = document.activeElement && document.activeElement.closest && document.activeElement.closest(CAPA);
+    if (b && e.key === 'Tab') { b.style.removeProperty('--bx'); b.style.removeProperty('--by'); }
+  });
 
   /* -----------------------------------------------------------------------------------
      10 · ARRANQUE: revelar, cotas, bucles de CSS, estado, metros y enlaces de WhatsApp

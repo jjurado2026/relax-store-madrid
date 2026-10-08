@@ -1,17 +1,18 @@
 /* =====================================================================================
    «Los sofás, en postales» (#postales) — el expositor del mostrador.
    Sus 26 postales, enteras a su proporción, un poco giradas y solapadas sobre dos baldas
-   rayadas (escritorio) o en un carril con imán (móvil). Cada postal tiene tres capas:
+   (una línea fina cada una; pase de elegancia 8-oct-2026: sin rayado) en escritorio, o en un
+   carril con imán (móvil). Cada postal tiene tres capas:
      li.postales__item      pose en el expositor (rotate / translate) + caída de entrada y filtro
      .postales__postal      se eleva y se endereza al pasar el cursor; se adelanta al girarse
      .postales__giro        da la vuelta (rotateY 180°, muelle) → .postales__dorso
-   La foto (img) se inclina hacia el cursor. Solo transform y opacity.
+   Con el cursor, la postal se levanta, se endereza y crece un poco (no sigue al ratón). Solo transform y opacity.
    ===================================================================================== */
 .postales {
   --postal-w: clamp(280px, 19vw + 70px, 420px);
   --postal-ar: 1.42;                                  /* la caja de la postal: cabe la más alta (Nápoles, 1,478) y deja sitio al reverso */
   --postal-h: calc(var(--postal-w) / var(--postal-ar));
-  --balda-h: 14px;
+  --balda-h: 10px;
   --fila-h: calc(var(--postal-h) + var(--balda-h));
   --fila-gap: clamp(26px, 2.4vw, 44px);
   --solape: .13;
@@ -25,20 +26,20 @@
 /* --- cabecera: titular, entrada y la cuenta de «tu hueco» ---------------------------------- */
 .postales__cabeza { display: grid; gap: var(--e4) var(--e8); align-items: end; }
 .postales__cabeza .titular { max-width: none; }
-.postales__entrada { color: rgba(255, 255, 255, .84); max-width: 44ch; }
+.postales__entrada { color: var(--noche-texto); max-width: 44ch; }
 @media (min-width: 1100px) { .postales__cabeza { grid-template-columns: auto minmax(0, 44ch); justify-content: space-between; } .postales__entrada { padding-bottom: .5em; } }
 
 .postales__cesta {
   position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px 0 16px;
-  border-radius: var(--radio-boton); background: var(--azul); color: #fff; font-weight: 700; font-size: var(--t-boton); text-decoration: none; white-space: nowrap;
-  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .6); transition: transform .5s var(--muelle);
+  border-radius: var(--radio-boton); background: #fff; color: var(--negro); font-weight: 600; font-size: var(--t-boton); text-decoration: none; white-space: nowrap;
+  transition: transform .5s var(--muelle-suave);
 }
 .postales__cesta[hidden] { display: none; }
-.postales__cesta::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #fff; opacity: 0; transition: opacity var(--d-capa) linear; }
-.postales__cesta svg { width: 16px; height: 16px; color: var(--azul-noche); transition: transform .5s var(--muelle); }
-.postales__cesta:hover, .postales__cesta:focus-visible { transform: translateY(-2px); color: var(--tinta); }
+.postales__cesta::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
+.postales__cesta svg { width: 14px; height: 14px; color: var(--azul); transition: transform .5s var(--muelle-suave); }
+.postales__cesta:hover, .postales__cesta:focus-visible { transform: translateY(-2px); color: #fff; }
 .postales__cesta:hover::before, .postales__cesta:focus-visible::before { opacity: 1; }
-.postales__cesta:hover svg, .postales__cesta:focus-visible svg { color: var(--azul); transform: translateY(2px); }
+.postales__cesta:hover svg, .postales__cesta:focus-visible svg { color: #fff; transform: translateY(2px); }
 .postales__cesta:active { transform: scale(.97); transition-duration: .12s; }
 
 /* --- mandos: filtros de una línea + parar el expositor ------------------------------------ */
@@ -46,16 +47,14 @@
 .postales__extra { display: flex; align-items: center; gap: var(--e3); flex: none; }
 .postales__filtros { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 6px 4px; margin: -6px -4px; min-width: 0; }
 .postales__filtros::-webkit-scrollbar { display: none; }
-.postales__filtro { flex: none; border-color: transparent; }
-.postales__cuenta { font-variant-numeric: tabular-nums; font-weight: 700; font-size: .8125rem; color: var(--lapiz); min-width: 1ch; }
+.postales__filtro { flex: none; }
+.postales__cuenta { font-variant-numeric: tabular-nums; font-weight: 500; font-size: .8125rem; opacity: .66; min-width: 1ch; }
 .postales__cuenta:empty { display: none; }
-.postales__filtro[aria-pressed="true"] { border-color: var(--azul); }
-.postales__filtro[aria-pressed="true"] .postales__cuenta { color: var(--azul); }
 .postales__filtro:focus-visible { outline-color: var(--azul-noche); }
 
 .postales__control {
- display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 2px solid var(--linea-noche); border-radius: var(--radio-chip);
-  background: transparent; color: #fff; font: 600 var(--t-peq)/1.1 var(--f-texto); white-space: nowrap; cursor: pointer; transition: transform .45s var(--muelle);
+ display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid rgba(255, 255, 255, .3); border-radius: var(--radio-chip);
+  background: transparent; color: #fff; font: 500 var(--t-peq)/1.1 var(--f-texto); white-space: nowrap; cursor: pointer; transition: transform .45s var(--muelle-suave);
 }
 .postales__control[hidden] { display: none; }
 .postales__control svg { width: 16px; height: 16px; color: var(--azul-noche); }
@@ -68,16 +67,14 @@
 /* --- la vitrina: a sangre, con dos baldas rayadas fijas y las postales que se deslizan ---------- */
 .postales__vitrina {
   position: relative; margin: clamp(10px, 1.6vw, 24px) calc(var(--canal) * -1) 0; padding: var(--vit-pad-y) var(--vit-pad-x) calc(var(--vit-pad-y) - 6px);
-  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: rgba(142, 194, 236, .5) transparent;
+  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .3) transparent;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--canal), #000 calc(100% - var(--canal)), transparent);
   mask-image: linear-gradient(90deg, transparent, #000 var(--canal), #000 calc(100% - var(--canal)), transparent);
-  /* las baldas: línea azul noche + rayado, fijas en la vitrina (las postales se deslizan sobre ellas) */
+  /* las baldas: una línea fina, fija en la vitrina (las postales se deslizan sobre ella) */
   --y1: calc(var(--vit-pad-y) + var(--fila-h) - var(--balda-h));
   --y2: calc(var(--vit-pad-y) + 2 * var(--fila-h) + var(--fila-gap) - var(--balda-h));
-  --rayado: repeating-linear-gradient(-45deg, var(--linea-noche) 0 1.3px, transparent 1.3px 7px);
-  background:
-    linear-gradient(var(--azul-noche), var(--azul-noche)) 0 var(--y1) / 100% 2px no-repeat,
-    var(--rayado) 0 calc(var(--y1) + 2px) / 100% calc(var(--balda-h) - 2px) no-repeat;
+  --balda: linear-gradient(rgba(255, 255, 255, .24), rgba(255, 255, 255, .24));
+  background: var(--balda) 0 var(--y1) / 100% 1px no-repeat;
 }
 .postales__vitrina.arrastrando { cursor: grabbing; user-select: none; }
 .postales__vitrina.arrastrando .postales__frente { cursor: grabbing; }
@@ -95,7 +92,7 @@
 .postales__item[hidden] { display: none; }
 .postales__postal {
   position: relative; container-type: inline-size; perspective: 1300px;
-  transform-origin: 50% 100%; transition: transform .6s var(--muelle);
+  transform-origin: 50% 100%; transition: transform .6s var(--muelle-suave);
 }
 .postales__giro {
   position: relative; aspect-ratio: var(--postal-ar); transform-style: preserve-3d;
@@ -107,58 +104,57 @@
   border-radius: 3px; -webkit-tap-highlight-color: transparent;
 }
 .postales__frente img {
-  width: 100%; border-radius: 3px; box-shadow: 0 2px 3px rgba(2, 16, 28, .35), 0 22px 34px -18px rgba(2, 16, 28, .8);
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--sale);
+  width: 100%; border-radius: 2px; box-shadow: 0 18px 30px -22px rgba(0, 0, 0, .9);
+  transition: transform .5s var(--sale);
 }
-.postales__frente:focus-visible { outline: 3px solid var(--azul-noche); outline-offset: 5px; }
+.postales__frente:focus-visible { outline: 2px solid var(--azul-noche); outline-offset: 5px; }
 
 /* la marca «en tu hueco» (cuando la postal va en el mensaje) */
 .postales__marca {
-  position: absolute; z-index: 2; left: 8%; top: -14px; padding: 2px 10px 3px; border-radius: 6px; background: var(--azul); color: #fff;
-  font: 400 clamp(.9375rem, 5cqi, 1.25rem)/1.15 var(--f-mano); white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .6);
-  opacity: 0; transform: translateY(8px) scale(.6) rotate(-6deg); transform-origin: 20% 100%; pointer-events: none;
-  transition: opacity .2s linear, transform .55s var(--muelle);
+  position: absolute; z-index: 2; left: 8%; top: -13px; padding: 4px 10px; border-radius: 4px; background: var(--azul); color: #fff;
+  font: 600 clamp(.75rem, 3.6cqi, .875rem)/1.15 var(--f-texto); white-space: nowrap;
+  opacity: 0; transform: translateY(6px); pointer-events: none;
+  transition: opacity .2s linear, transform .5s var(--muelle-suave);
 }
-.postales__item.en-hueco .postales__marca { opacity: 1; transform: rotate(-4deg); }
+.postales__item.en-hueco .postales__marca { opacity: 1; transform: none; }
 
 /* --- el reverso ----------------------------------------------------------------------------- */
 .postales__dorso {
   position: absolute; inset: 0; transform: rotateY(180deg); overflow: hidden;
   display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto 1fr auto; column-gap: 2cqi;
-  padding: 5cqi 4.6cqi 4.4cqi 5cqi; border-radius: 3px; background: var(--blanco); color: var(--tinta);
-  box-shadow: inset 0 0 0 1.6cqi var(--blanco), inset 0 0 0 calc(1.6cqi + 1px) var(--trazo), 0 22px 34px -18px rgba(2, 16, 28, .8);
+  padding: 5cqi 4.6cqi 4.4cqi 5cqi; border-radius: 2px; background: var(--blanco); color: var(--tinta);
+  box-shadow: inset 0 0 0 1.6cqi var(--blanco), inset 0 0 0 calc(1.6cqi + 1px) rgba(18, 18, 18, .12), 0 18px 30px -22px rgba(0, 0, 0, .9);
 }
 .postales__sello { grid-column: 2; grid-row: 1 / span 2; width: 33cqi; height: auto; margin: -1.2cqi -1.2cqi 0 0; align-self: start; }
-.postales__matasellos-texto { font: 700 11px var(--f-texto); letter-spacing: .3px; }
+.postales__matasellos-texto { font: 600 11px var(--f-texto); letter-spacing: .3px; }
 .postales__ciudad { grid-column: 1; grid-row: 1; align-self: end; font: 400 clamp(1.5rem, 11cqi, 2.75rem)/1 var(--f-mano); color: var(--azul); letter-spacing: 0; }
-.postales__tipo { grid-column: 1; grid-row: 2; font-weight: 700; font-size: clamp(.75rem, 4.3cqi, 1rem); line-height: 1.3; margin-top: 1.6cqi; }
+.postales__tipo { grid-column: 1; grid-row: 2; font-weight: 600; font-size: clamp(.75rem, 4.3cqi, 1rem); line-height: 1.3; margin-top: 1.6cqi; }
 .postales__linea { grid-column: 1 / -1; grid-row: 3; font-size: clamp(.75rem, 4.1cqi, .9375rem); line-height: 1.35; color: var(--lapiz); margin-top: .8cqi; }
 .postales__acciones { grid-column: 1 / -1; grid-row: 5; display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 6px; }
 .postales__accion {
-  position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 0 10px;
-  border: 2px solid var(--tinta); border-radius: 10px; background: var(--blanco); color: var(--tinta); text-decoration: none; cursor: pointer;
-  font: 700 clamp(.75rem, 4.3cqi, .9375rem)/1.1 var(--f-texto); white-space: nowrap; transition: transform .45s var(--muelle);
+  position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 0 10px;
+  border: 1.5px solid var(--tinta); border-radius: var(--radio-boton); background: transparent; color: var(--tinta); text-decoration: none; cursor: pointer;
+  font: 600 clamp(.75rem, 4.3cqi, .9375rem)/1.1 var(--f-texto); white-space: nowrap; transition: transform .45s var(--muelle-suave);
 }
-.postales__accion::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; background: var(--azul); opacity: 0; transition: opacity var(--d-capa) linear; }
+.postales__accion::before { /* la capa azul crece desde donde entra el cursor (base.js escribe --bx/--by) */
+  content: ""; position: absolute; z-index: -1; left: var(--bx, 50%); top: var(--by, 50%); width: 300%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--azul); pointer-events: none; transform: translate(-50%, -50%) scale(0); transition: transform .32s var(--entra);
+}
 .postales__accion svg { width: 18px; height: 18px; flex: none; }
-.postales__accion:hover, .postales__accion:focus-visible { color: #fff; border-color: transparent; transform: translateY(-2px); }
-.postales__accion:hover::before, .postales__accion:focus-visible::before { opacity: 1; }
+.postales__accion:hover, .postales__accion:focus-visible { color: #fff; border-color: var(--azul); }
+.postales__accion:hover::before, .postales__accion:focus-visible::before { transform: translate(-50%, -50%) scale(1); transition: transform .6s var(--sale); }
 .postales__accion:active { transform: scale(.96); transition-duration: .1s; }
 .postales__accion:focus-visible { outline-offset: 2px; }
-.postales__preguntar { grid-column: 1; color: #fff; border-color: transparent; }
-.postales__preguntar::before { opacity: 1; }
-.postales__preguntar:hover::before, .postales__preguntar:focus-visible::before { background: var(--azul-hondo); }
+.postales__preguntar { grid-column: 1; color: #fff; background: var(--tinta); }
 .postales__volver { grid-column: 2; padding: 0; }
 .postales__anadir { grid-column: 1 / -1; }
 .postales__anadir .postales__hecho { opacity: 0; }
 .postales__anadir[aria-pressed="true"] { border-color: var(--azul); color: var(--azul-hondo); }
-.postales__anadir[aria-pressed="true"]::before { background: var(--azul-plano); opacity: 1; }
-.postales__anadir[aria-pressed="true"]:hover, .postales__anadir[aria-pressed="true"]:focus-visible { color: var(--tinta); }
+.postales__anadir[aria-pressed="true"]:hover, .postales__anadir[aria-pressed="true"]:focus-visible { color: #fff; }
 .postales__anadir[aria-pressed="true"] .postales__mas { opacity: 0; }
 .postales__anadir[aria-pressed="true"] .postales__hecho { opacity: 1; }
 /* el principal se apaga si el cursor pasa al otro botón */
-.postales__acciones:has(.postales__anadir:hover, .postales__volver:hover) .postales__preguntar:not(:hover, :focus-visible) { color: var(--tinta); border-color: var(--tinta); }
-.postales__acciones:has(.postales__anadir:hover, .postales__volver:hover) .postales__preguntar:not(:hover, :focus-visible)::before { opacity: 0; }
+.postales__acciones:has(.postales__anadir:hover, .postales__volver:hover) .postales__preguntar:not(:hover, :focus-visible) { color: var(--tinta); background: transparent; }
 @container (max-width: 300px) {
   .postales__dorso { padding: 4cqi 3.6cqi 3.6cqi 4cqi; }
   .postales__sello { grid-row: 1; width: 27cqi; }
@@ -173,32 +169,24 @@
 
 /* --- escritorio: dos baldas, postales solapadas en ladrillo; cursor que inclina ------------- */
 @media (min-width: 900px) {
-  .postales__vitrina {
-    background:
-      linear-gradient(var(--azul-noche), var(--azul-noche)) 0 var(--y1) / 100% 2px no-repeat,
-      var(--rayado) 0 calc(var(--y1) + 2px) / 100% calc(var(--balda-h) - 2px) no-repeat,
-      linear-gradient(var(--azul-noche), var(--azul-noche)) 0 var(--y2) / 100% 2px no-repeat,
-      var(--rayado) 0 calc(var(--y2) + 2px) / 100% calc(var(--balda-h) - 2px) no-repeat;
-  }
+  .postales__vitrina { background: var(--balda) 0 var(--y1) / 100% 1px no-repeat, var(--balda) 0 var(--y2) / 100% 1px no-repeat; }
   .postales__expositor { grid-template-rows: var(--fila-h) var(--fila-h); row-gap: var(--fila-gap); padding-right: calc(var(--paso) / 2); }
   .postales__item { margin-right: calc(var(--postal-w) * var(--solape) * -1); rotate: var(--giro); translate: calc(var(--fila) * var(--paso) * .42) 0; scroll-snap-align: none; }
   .postales__item:hover, .postales__item:focus-within { z-index: 5; }
   /* con pocos modelos (caben en una balda): una sola fila, centrada */
-  .postales__vitrina.una-fila { background:
-      linear-gradient(var(--azul-noche), var(--azul-noche)) 0 var(--y1) / 100% 2px no-repeat,
-      var(--rayado) 0 calc(var(--y1) + 2px) / 100% calc(var(--balda-h) - 2px) no-repeat; }
+  .postales__vitrina.una-fila { background: var(--balda) 0 var(--y1) / 100% 1px no-repeat; }
   .una-fila .postales__expositor { grid-template-rows: var(--fila-h); margin-inline: auto; padding-right: 0; }
   .una-fila .postales__item { translate: none; }
   .una-fila .postales__item.ultima { margin-right: 0; }
   .postales__item.girada { z-index: 6; }
 }
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
-  .postales__item:hover .postales__postal { transform: translateY(-16px) rotate(calc(var(--giro) * -1)); }
-  .postales__item:hover .postales__frente img { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.045); transition-duration: .35s; }
+  .postales__item:hover .postales__postal { transform: translateY(-14px) rotate(calc(var(--giro) * -1)); }
+  .postales__item:hover .postales__frente img { transform: scale(1.03); }
 }
 @media (min-width: 900px) {
   .postales__frente:focus-visible img { transform: scale(1.03); }
-  .postales__item.girada .postales__postal, .postales__item.girada:hover .postales__postal { transform: translateY(-12px) rotate(calc(var(--giro) * -1)) scale(1.07); }
+  .postales__item.girada .postales__postal, .postales__item.girada:hover .postales__postal { transform: translateY(-12px) rotate(calc(var(--giro) * -1)) scale(1.05); }
 }
 
 /* --- móvil y tableta: un carril con imán, una postal y el borde de la siguiente -------------- */
@@ -214,10 +202,10 @@
 }
 
 /* --- entrada: caen una a una (solo con movimiento) ------------------------------------------ */
-.anima .postales__expositor:not(.dentro) .postales__item { opacity: 0; transform: translateY(-96px) rotate(calc(var(--lado) * 20deg)) scale(1.1); }
+.anima .postales__expositor:not(.dentro) .postales__item { opacity: 0; transform: translateY(-36px) rotate(calc(var(--lado) * 5deg)); }
 .anima .postales__expositor.dentro .postales__item {
-  transition: opacity .4s linear calc(var(--orden, var(--i)) * 70ms + .1s), transform 1.05s var(--muelle) calc(var(--orden, var(--i)) * 70ms + .1s);
+  transition: opacity .5s linear calc(var(--orden, var(--i)) * 60ms + .1s), transform 1.1s var(--muelle-suave) calc(var(--orden, var(--i)) * 60ms + .1s);
 }
 /* aviso al cambiar la cuenta de «tu hueco» */
-@keyframes postales-respingo { 0% { transform: scale(1); } 30% { transform: scale(1.12) rotate(-2deg); } 60% { transform: scale(.97); } 100% { transform: scale(1); } }
+@keyframes postales-respingo { 0% { transform: scale(1); } 35% { transform: scale(1.06); } 100% { transform: scale(1); } }
 .anima .postales__cesta.respingo { animation: postales-respingo .6s var(--sale); }

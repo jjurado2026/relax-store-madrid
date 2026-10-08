@@ -1,39 +1,8 @@
 /* ===== coleccion ===== */
 ;(() => {
-/* «Nuestra colección»: las cotas se abren cuando cada foto ha caído en su hueco; al pasar el
-   cursor (o al enfocar el marco), la cota vuelve a medir y la foto se acerca hacia el cursor. */
-(() => {
-  'use strict';
-  const RS = window.RS, sec = document.getElementById('coleccion');
-  if (!RS || !sec) return;
-  const piezas = [...sec.querySelectorAll('.coleccion__pieza')];
-  const ancho = matchMedia('(min-width: 900px)');
-
-  piezas.forEach((pieza, i) => {
-    const cota = pieza.querySelector('.cota');
-    const marco = pieza.querySelector('.coleccion__marco');
-    // la cota se abre cuando la foto ya ha caído (900 ms + su retardo)
-    RS.revelar(pieza, () => {
-      if (RS.quieto) { RS.cota.medir(cota); return; }
-      setTimeout(() => RS.cota.medir(cota), ancho.matches ? 820 + i * 140 : 700);
-    });
-    // la cota vuelve a medir al entrar el cursor o el foco (una vez por entrada)
-    let midiendo = false;
-    const remedir = () => {
-      if (RS.quieto || midiendo || !cota.classList.contains('is-medida')) return;
-      midiendo = true;
-      RS.cota.remedir(cota).then(() => { midiendo = false; });
-    };
-    pieza.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') remedir(); });
-    marco.addEventListener('focus', remedir);
-    // el zoom va hacia el cursor
-    marco.addEventListener('pointermove', e => {
-      const r = marco.getBoundingClientRect();
-      marco.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-      marco.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-    });
-  });
-})();
+/* «Nuestra colección» (pase de elegancia, 8-oct-2026): sin cotas sobre las fotos ni zoom que siga al
+   cursor; la reacción es quieta y vive en el CSS (la foto sube 4 px y aparece su sombra). Aquí solo
+   queda «Medir mi hueco». */
 
 /* «Medir mi hueco»: las puntas de la cota salen del centro del botón (su ancho cambia con la pantalla) */
 (() => {
@@ -137,16 +106,8 @@
   sec.addEventListener('keydown', e => {
     if (e.key === 'Escape' && girada && girada.contains(document.activeElement)) { e.preventDefault(); volver(girada); }
   });
-  // la postal se inclina hacia el cursor (solo escritorio con ratón)
-  items.forEach(it => {
-    const img = $('.postales__frente img', it);
-    it.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse' || !finoCursor.matches || RS.quieto) return;
-      const r = img.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      it.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg'); it.style.setProperty('--rx', (y * -11).toFixed(2) + 'deg');
-    });
-    it.addEventListener('pointerleave', () => { it.style.removeProperty('--rx'); it.style.removeProperty('--ry'); });
-  });
+  // (8-oct-2026, pase de elegancia: la postal ya no se inclina siguiendo al cursor; con el cursor
+  //  se levanta, se endereza y crece un poco, siempre igual: CSS)
 
   /* ---------- 4 · filtros ---------- */
   const visibles = () => items.filter(it => !it.hidden);
@@ -780,40 +741,21 @@
 
 /* ===== presentacion ===== */
 ;(() => {
-/* PRESENTACIÓN — 1) la cota que subraya «el modelo que más se adecue a tu espacio», un trazo por línea
-   de texto (se rehace al cambiar el ancho); 2) el metro del proceso, que sale de su caja ligado al scroll
-   (transform con requestAnimationFrame y solo mientras se ve). En .quieto, el metro está fuera del todo. */
+/* PRESENTACIÓN — el metro del proceso, que sale de su caja ligado al scroll (transform con
+   requestAnimationFrame y solo mientras se ve); al llegar al final aparece el plazo. En .quieto,
+   el metro está fuera del todo. (Pase de elegancia, 8-oct-2026: fuera la cota que subrayaba la
+   frase; el énfasis es solo de color, en CSS.) */
 (() => {
   'use strict';
   const sec = document.getElementById('presentacion');
   if (!sec || !window.RS) return;
   const QUIETO = RS.quieto;
 
-  /* ---------- 1 · la cota partida por líneas ---------- */
-  const texto = sec.querySelector('.presentacion__texto'), span = sec.querySelector('.presentacion__subrayado'), capa = sec.querySelector('.presentacion__trazos');
-  const trazar = () => {
-    if (!texto || !span || !capa) return;
-    const base = texto.getBoundingClientRect();
-    const lineas = [...span.getClientRects()].filter(r => r.width > 2);
-    const pb = parseFloat(getComputedStyle(span).paddingBottom) || 0;   // la línea cae dentro del hueco bajo la frase
-    capa.innerHTML = lineas.map((r, k) => {
-      const ini = k === 0, fin = k === lineas.length - 1;
-      return `<span class="presentacion__trazo" style="left:${(r.left - base.left).toFixed(1)}px;top:${(r.bottom - base.top - pb * .6 - 8).toFixed(1)}px;width:${r.width.toFixed(1)}px;--k:${k}">`
-        + '<i class="t-linea"></i>'
-        + (ini ? '<i class="t-punta t-punta--ini"></i><i class="t-ref t-ref--ini"></i>' : '')
-        + (fin ? `<i class="t-punta t-punta--fin" style="--k:${k}"></i><i class="t-ref t-ref--fin"></i>` : '') + '</span>';
-    }).join('');
-  };
-  let rz = 0;
-  if (texto) new ResizeObserver(() => { cancelAnimationFrame(rz); rz = requestAnimationFrame(trazar); }).observe(texto);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(trazar);
-
-  /* ---------- 2 · el metro del proceso ---------- */
   const metro = sec.querySelector('.presentacion__metro'), via = sec.querySelector('.presentacion__via'),
         cinta = sec.querySelector('.presentacion__cinta'), una = sec.querySelector('.presentacion__una'),
         pasos = [...sec.querySelectorAll('.presentacion__paso')], plazo = sec.querySelector('.presentacion__plazo');
   if (!metro || !via || !cinta) return;
-  let marcas = [], vertical = false, largo = 1, medido = false;
+  let marcas = [], vertical = false, largo = 1;
   const medir = () => {
     vertical = via.clientHeight > via.clientWidth;
     largo = vertical ? via.clientHeight : via.clientWidth;
@@ -825,8 +767,8 @@
     else { cinta.style.transform = `translateX(${((p - 1) * 100).toFixed(3)}%)`; una.style.transform = `translateX(${(p * largo).toFixed(2)}px)`; }
     pasos.forEach((paso, i) => paso.classList.toggle('en-cinta', p >= marcas[i] - .015));
     if (plazo) {
-      if (p >= .985 && !medido) { medido = true; RS.cota.medir(plazo); }
-      else if (p < .9 && medido) { medido = false; RS.cota.cerrar(plazo); }
+      if (p >= .985) plazo.classList.add('visto');
+      else if (p < .9) plazo.classList.remove('visto');
     }
   };
   if (QUIETO) { medir(); pintar(1); return; }
@@ -851,8 +793,9 @@
 /* ===== visita ===== */
 ;(() => {
 /* VISITA — el día de hoy marcado (hora de Madrid, RS.estado), la marca de «ahora» en su franja,
-   las cotas del camino que se abren una tras otra, la luz de las letras corpóreas que sigue al cursor
-   (canto y sombra), el tercio de vuelta de la A al entrar el cursor y el zoom de la fachada hacia el cursor. */
+   la luz de las letras corpóreas que sigue al cursor (canto y sombra) y el tercio de vuelta de la A
+   al entrar el cursor. (Pase de elegancia, 8-oct-2026: las rutas ya no son cotas y la fachada no
+   sigue al cursor: su reacción es quieta, en CSS.) */
 (() => {
   'use strict';
   const sec = document.getElementById('visita');
@@ -877,11 +820,6 @@
   marcarHoy();
   document.addEventListener('rs:estado', ev => marcarHoy(ev.detail));
 
-  /* ---------- las cotas del camino, una tras otra ---------- */
-  const camino = sec.querySelector('.visita__camino');
-  const cotas = [...sec.querySelectorAll('.visita__cota')];
-  if (camino && !QUIETO) RS.revelar(camino, () => cotas.forEach((c, i) => setTimeout(() => RS.cota.medir(c), 200 + i * 420)));
-
   if (QUIETO || !FINO) return;
 
   /* ---------- la luz sobre las letras corpóreas y el tercio de vuelta de la A ---------- */
@@ -904,13 +842,6 @@
     rotulo.addEventListener('pointerenter', () => { if (listo && tri) { n++; tri.style.setProperty('--n', n); } });
   }
 
-  /* ---------- la fachada se acerca hacia donde apunta el cursor ---------- */
-  const marco = sec.querySelector('.visita__marco');
-  if (marco) marco.addEventListener('pointermove', e => {
-    const r = marco.getBoundingClientRect();
-    marco.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-    marco.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-  });
 })();
 
 })();

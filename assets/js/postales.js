@@ -87,16 +87,8 @@
   sec.addEventListener('keydown', e => {
     if (e.key === 'Escape' && girada && girada.contains(document.activeElement)) { e.preventDefault(); volver(girada); }
   });
-  // la postal se inclina hacia el cursor (solo escritorio con ratón)
-  items.forEach(it => {
-    const img = $('.postales__frente img', it);
-    it.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse' || !finoCursor.matches || RS.quieto) return;
-      const r = img.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      it.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg'); it.style.setProperty('--rx', (y * -11).toFixed(2) + 'deg');
-    });
-    it.addEventListener('pointerleave', () => { it.style.removeProperty('--rx'); it.style.removeProperty('--ry'); });
-  });
+  // (8-oct-2026, pase de elegancia: la postal ya no se inclina siguiendo al cursor; con el cursor
+  //  se levanta, se endereza y crece un poco, siempre igual: CSS)
 
   /* ---------- 4 · filtros ---------- */
   const visibles = () => items.filter(it => !it.hidden);
