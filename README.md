@@ -39,7 +39,7 @@ HTML, CSS y JavaScript puro. Cero dependencias, cero build. Caprasimo + Epilogue
 Parámetros útiles: `?ss` (sin animaciones, para capturas) · `?ahora=2026-10-08T18:00` (fija la hora de Madrid para revisar el estado abierto/cerrado) · `?caducada` (simula la caducidad).
 
 ## Caducidad
-La propuesta se ve hasta el **domingo 18 de octubre de 2026 a las 23:59** (hora de Madrid), 10 días desde su envío el 9 de octubre. Desde el 19, `index.html` lleva a `caducada.html`: el aviso, el contacto y la home en miniatura. La fecha está en el primer `<script>` de `index.html` (`Date.UTC(2026, 9, 18, 22, 0)`). Abierto como archivo (`file://`) no caduca.
+La propuesta se ve hasta el **domingo 18 de octubre de 2026 a las 23:59** (hora de Madrid), 10 días desde su envío el 9 de octubre. Desde el 19, `index.html` lleva a `caducada.html`: «No puedes ver esta página porque han pasado más de 10 días desde su envío. Si sigues con interés, escríbeme a jjuradogarciadelrio@gmail.com.» y la home entera en miniatura. La fecha está en el primer `<script>` de `index.html` (`Date.UTC(2026, 9, 18, 22, 0)`). Abierto como archivo (`file://`) no caduca.
 
 ## Ver en local
 ```bash
