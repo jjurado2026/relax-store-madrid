@@ -28,7 +28,7 @@
      23:59 de Madrid (16-oct 00:00 CEST = 15-oct 22:00 UTC). En local (file://) no caduca, para seguir
      generando capturas; ?caducada lo simula. */
   (function () {
-    var fin = Date.UTC(2026, 9, 15, 22, 0);
+    var fin = Date.UTC(2026, 9, 18, 22, 0);   // visible hasta el domingo 18-oct-2026 a las 23:59 de Madrid (10 días desde el envío, el 9-oct)
     if (/[?&]caducada\b/.test(location.search) || (location.protocol !== 'file:' && Date.now() >= fin)) {
       document.documentElement.style.display = 'none';
       location.replace('caducada.html');
@@ -51,9 +51,9 @@
 <link rel="preload" href="assets/fonts/gochi-hand-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/hero-002-1280.webp" imagesrcset="assets/img/hero-002-640.webp 640w, assets/img/hero-002-960.webp 960w, assets/img/hero-002-1280.webp 1280w, assets/img/hero-002-1920.webp 1920w, assets/img/hero-002-2560.webp 2560w" imagesizes="(orientation: landscape) and (min-width: 700px) 50vw, min(calc(100vw - 60px), 58vh)" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/home.css?v=muzsqsnw">
+<link rel="stylesheet" href="assets/css/home.css?v=mv1083pz">
 <script src="assets/js/base.js" defer></script>
-<script src="assets/js/home.js?v=muzsqsnw" defer></script>
+<script src="assets/js/home.js?v=mv1083pz" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
